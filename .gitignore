@@ -34,3 +34,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
+.vs/iSight/v15/Server/sqlite3/db.lock
+.vs/iSight/v15/Server/sqlite3/storage.ide
