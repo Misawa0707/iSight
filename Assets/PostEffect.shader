@@ -1,4 +1,6 @@
-﻿Shader "Custom/PostEffect" {
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/PostEffect" {
 	Properties {
 		_MainTex ("Texture", 2D) = "white" {}
 		_NoiseX("NoiseX", Range(0, 1)) = 0
@@ -17,7 +19,7 @@
 
 		Pass
 		{
-			CGPRORAM
+			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
             #pragma target 3.0
@@ -39,7 +41,7 @@
 			v2f vert(appdata v)
 			{
 				v2f o;
-				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = v.uv;
 				return o;
 			}
@@ -47,7 +49,7 @@
 			float rand(float2 co) {
 				return frac(sin(dot(co.xy, float2(12.9898, 78.233))) * 43758.5453);
 			}
-			sampler2D _Maintex;
+			sampler2D _MainTex;
 			float _NoiseX;
 			float2 _Offset;
 			float _RGBNoise;
@@ -68,7 +70,7 @@
 				float2 texUV = uv + 0.5;
 
 				//	画面外なら描画しない
-				if (max(abs(uv.y) - 0.5, abs(uv.x) - 0.5 > 0)
+				if (max(abs(uv.y) - 0.5, abs(uv.x) - 0.5) > 0)
 				{
 					return float4(0, 0, 0, 1);
 				}
@@ -80,55 +82,41 @@
 				texUV.x += sin(texUV.y * _SinNoiseWidth + _SinNoiseOffset) * _SinNoiseScale;
 				texUV += _Offset;
 				texUV.x += (rand(floor(texUV.y * 500) + _Time.y) - 0.5) * _NoiseX;
-				texUV = mod(texUV, 1);
+				//texUV = mod(texUV, 1);
 
 				//	色を取得しRGBを少しずらす
-				col.r = tex2D(_Maintex, texUV).r;
-				col.g = tex2D(_Maintex, texUV - float2(0.002, 0)).g;
-				col.b = tex2D(_Maintex, texUV - float2(0.002, 0)).g;
+				col.r = tex2D(_MainTex, texUV).r;
+				col.g = tex2D(_MainTex, texUV - float2(0.002, 0)).g;
+				col.b = tex2D(_MainTex, texUV - float2(0.002, 0)).g;
 
 				//	RGBノイズ
-				if(rand((rand(floor)(texUV.y * 500) + _Time.y) - 0.5) + _Time.y) < _RGBNoise)
+				if (rand((rand(floor(texUV.y * 500) + _Time.y) - 0.5) + _Time.y) < _RGBNoise)
+				{
+					col.r = tex2D(_MainTex, texUV).r;
+					col.g = tex2D(_MainTex, texUV - float2(0.002, 0)).g;
+					col.b = tex2D(_MainTex, texUV - float2(0.004, 0)).b;
+				}
+
+				//	ピクセルごとに描画するRGBを決める
+				float floorX = fmod(inUV.x * _ScreenParams.x / 3, 1);
+				col.r *= floorX > 0.3333;
+				col.g *= floorX < 0.3333 || floorX > 0.6666;
+				col.b *= floorX < 0.6666;
+
+				//	スキャンラインを描画
+				float scanLineColor = sin(_Time.y * 10 + uv.y * 500) / 2 + 0.5;
+				col *= 0.5 + clamp(scanLineColor + 0.5, 0, 1) * 0.5;
+
+				//	スキャンラインの残像を描画
+				float tail = clamp((frac(uv.y + _Time.y * _ScanLineSpeed) - 1 + _ScanLineTail) / min(_ScanLineTail, 1), 0, 1);
+				col *= tail;
+
+				//	画面端を暗くする
+				//col *= 1 - vignet * 1.3;
+
+				return float4(col, 1);
 			}
+			ENDCG
 		}
-
-		Tags { "RenderType"="Opaque" }
-		LOD 200
-		
-		CGPROGRAM
-		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard fullforwardshadows
-
-		// Use shader model 3.0 target, to get nicer looking lighting
-		#pragma target 3.0
-
-		sampler2D _MainTex;
-
-		struct Input {
-			float2 uv_MainTex;
-		};
-
-		half _Glossiness;
-		half _Metallic;
-		fixed4 _Color;
-
-		// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
-		// See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
-		// #pragma instancing_options assumeuniformscaling
-		UNITY_INSTANCING_CBUFFER_START(Props)
-			// put more per-instance properties here
-		UNITY_INSTANCING_CBUFFER_END
-
-		void surf (Input IN, inout SurfaceOutputStandard o) {
-			// Albedo comes from a texture tinted by color
-			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-			o.Albedo = c.rgb;
-			// Metallic and smoothness come from slider variables
-			o.Metallic = _Metallic;
-			o.Smoothness = _Glossiness;
-			o.Alpha = c.a;
-		}
-		ENDCG
 	}
-	FallBack "Diffuse"
 }
