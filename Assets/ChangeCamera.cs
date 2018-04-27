@@ -14,8 +14,16 @@ public class ChangeCamera : MonoBehaviour {
     GameObject player;                     //   プレイヤーオブジェくト
     PlayerController playerScript;         //   プレイヤーのスクリプト
 
-	// Use this for initialization
-	void Start () {
+
+    public GameObject Wall1;                //消える壁1～６
+    public GameObject Wall2;        
+    public GameObject Wall3;
+    public GameObject Wall4;
+    public GameObject Wall5;
+    public GameObject Wall6;
+
+    // Use this for initialization
+    void Start () {
         //  プレイヤーがカメラ使用時のカメラを非アクティブにする
         PlayerCamera.SetActive(false);
 
@@ -39,6 +47,12 @@ public class ChangeCamera : MonoBehaviour {
                 {
                     NormalCamera.SetActive(false);
                     PlayerCamera.SetActive(true);
+                    Wall1.SetActive(false);
+                    Wall2.SetActive(false);
+                    Wall3.SetActive(false);
+                    Wall4.SetActive(false);
+                    Wall5.SetActive(false);
+                    Wall6.SetActive(false);
 
                     //  カメラ使用のフラグをtrueにする
                     useCameraFlag = true;
@@ -47,6 +61,12 @@ public class ChangeCamera : MonoBehaviour {
                 {
                     NormalCamera.SetActive(true);
                     PlayerCamera.SetActive(false);
+                    Wall1.SetActive(true);
+                    Wall2.SetActive(true);
+                    Wall3.SetActive(true);
+                    Wall4.SetActive(true);
+                    Wall5.SetActive(true);
+                    Wall6.SetActive(true);
 
                     //  カメラ使用のフラグをfalseにする
                     useCameraFlag = false;
