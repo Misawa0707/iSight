@@ -2,26 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class trap : MonoBehaviour
+public class key : MonoBehaviour
 {
+
     public GameObject Wall;
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "keyBox")
         {
             Debug.Log("ひらく");
-            Wall.SetActive(false);
+            Wall.SetActive(true);
         }
     }
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "keyBox")
         {
             Debug.Log("とじる");
-            Wall.SetActive(true);
+            Wall.SetActive(false);
         }
     }
-
-
 }

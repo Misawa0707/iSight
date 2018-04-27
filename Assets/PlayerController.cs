@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     
+    //  変数の宣言
     string CollisionName;           //  衝突相手の名前
-    bool RayHit;
+    bool RayHit;                    //  レイが当たっているかどうか
     public float Battery;           //  バッテリー
     GameObject player;              //  プレイヤーオブジェクト
     ChangeCamera changeCamera;      //  カメラ切り替えスクリプト
@@ -14,7 +15,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
         //  変数の初期化処理
         RayHit = false;
-        Battery = 100.0f;
+        Battery = 1.0f;
         player = GameObject.Find("Player");
         changeCamera = player.GetComponent<ChangeCamera>();
     }
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour {
             //  オブジェクトのnulチェック
             if (transform.Find(CollisionName) != null)
             {
+                 //transform.Find(CollisionName).GetComponent<Rigidbody>().isKinematic = false;
                  transform.Find(CollisionName).parent = null;
             }
         }
@@ -45,11 +47,12 @@ public class PlayerController : MonoBehaviour {
             //  バッテリーが0以上なら
             if (Battery > 0)
             {
-                Battery -= 0.025f;
+                Battery -= 0.0001f;
                 //Debug.Log(Battery);
             }
         }
 
+        //  FPSの表示(デバッグ用)
         //float fps = 1.0f / Time.deltaTime;
         //Debug.LogFormat("{0}fps", fps);
     }
@@ -75,6 +78,7 @@ public class PlayerController : MonoBehaviour {
             Vector3 hitPos = hit.transform.position;
 
             hit.transform.parent = this.transform;
+            //hit.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             CollisionName = hit.gameObject.name;
         }
 

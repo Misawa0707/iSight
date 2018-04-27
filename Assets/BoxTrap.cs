@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class trap : MonoBehaviour
-{
+public class BoxTrap : MonoBehaviour {
+
     public GameObject Wall;
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "MoveBox")
         {
             Debug.Log("ひらく");
             Wall.SetActive(false);
@@ -16,12 +16,10 @@ public class trap : MonoBehaviour
     }
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "MoveBox")
         {
             Debug.Log("とじる");
             Wall.SetActive(true);
         }
     }
-
-
 }
