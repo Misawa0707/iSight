@@ -7,7 +7,6 @@ public class ChangeCamera : MonoBehaviour {
     [SerializeField]
     private GameObject NormalCamera;       // 通常時に使用するカメラ
     [SerializeField]
-<<<<<<< HEAD
     private GameObject PlayerCamera;       // プレイヤーがカメラ使用時の別カメラ
                                               
     private bool useCameraFlag;            // カメラを使用しているかどうかのフラグ
@@ -34,18 +33,6 @@ public class ChangeCamera : MonoBehaviour {
         useCameraFlag = false;
         player = GameObject.Find("Player");
         playerScript = player.GetComponent<PlayerController>();
-=======
-    private GameObject PlayerCamera;       //   プレイヤーがカメラ使用時の別カメラ
-
-	// Use this for initialization
-	void Start () {
-        //  プレイヤーがカメラ使用時のカメラを非アクティブにする
-        PlayerCamera.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void Update () {
->>>>>>> a296b28fd0733c10a558d45d24fb87bcddc9a665
 
         item = GetComponent<ItemManager>();
     }
@@ -56,7 +43,6 @@ public class ChangeCamera : MonoBehaviour {
         // スペースキーが押されたら
         if (Input.GetKeyDown(KeyCode.Space))
         {
-<<<<<<< HEAD
             // バッテリーがあれば
             if (playerScript.Battery < 0) return;
 
@@ -141,20 +127,4 @@ public class ChangeCamera : MonoBehaviour {
         }
         
     }
-=======
-            //  それぞれのカメラのアクティブ状態を反転する
-            if (NormalCamera.activeSelf)
-            {
-                NormalCamera.SetActive(false);
-                PlayerCamera.SetActive(true);
-            }
-            else
-            {
-                NormalCamera.SetActive(true);
-                PlayerCamera.SetActive(false);
-            }
-
-        }
-	}
->>>>>>> a296b28fd0733c10a558d45d24fb87bcddc9a665
 }

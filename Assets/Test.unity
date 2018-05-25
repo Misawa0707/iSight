@@ -136,7 +136,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 69154437}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -345, y: 264.07407, z: 0}
+  m_LocalPosition: {x: -345, y: 244.17278, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 620553486}
@@ -232,7 +232,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 95420792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -430, y: 264.07407, z: 0}
+  m_LocalPosition: {x: -430, y: 244.17278, z: 0}
   m_LocalScale: {x: 2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 812072501}
@@ -300,7 +300,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 202766362}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -125, y: -259.07407, z: 0}
+  m_LocalPosition: {x: -125, y: -239.17279, z: 0}
   m_LocalScale: {x: 0.5, y: -0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 812072501}
@@ -536,7 +536,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 478673904}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -165, y: 254.07407, z: 0}
+  m_LocalPosition: {x: -165, y: 234.17278, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 812072501}
@@ -948,7 +948,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 788683176}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -254.07407, z: 0}
+  m_LocalPosition: {x: 0, y: -234.17279, z: 0}
   m_LocalScale: {x: 3, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 812072501}
@@ -1074,8 +1074,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 812072497}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 351, y: 240.5, z: 0}
-  m_LocalScale: {x: 0.8775, y: 0.8775, z: 0.8775}
+  m_LocalPosition: {x: 341.5, y: 217, z: 0}
+  m_LocalScale: {x: 0.85375, y: 0.85375, z: 0.85375}
   m_Children:
   - {fileID: 1759698975}
   - {fileID: 657190908}
@@ -1398,7 +1398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a421e4b1e9b684bbc05626c4b8ee47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: fae5f2397226a804897e6938dbe998ff, type: 2}
+  material: {fileID: 2100000, guid: b20f4d0e53d49064c8703b32df7865f9, type: 2}
   noiseX: 0
   rgbNoise: 0.039
   sinNoiseScale: 0.005
