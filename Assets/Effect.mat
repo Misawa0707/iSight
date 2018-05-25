@@ -26,9 +26,9 @@ Material:
     - _NoiseX: 0
     - _RGBNoise: 0.001
     - _ScanLineSpeed: 10
-    - _ScanLineTail: 1.88
+    - _ScanLineTail: 1.866
     - _SinNoiseOffset: 0
-    - _SinNoiseScale: 0.003
-    - _SinNoiseWidth: 0.05
+    - _SinNoiseScale: 0.005
+    - _SinNoiseWidth: 0
     m_Colors:
     - _Offset: {r: 0, g: 0, b: 0, a: 0}

@@ -23,13 +23,17 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //  マウスの左クリックが押されていたら
+        //  マウスの左クリックが離されたら
         if (Input.GetMouseButtonUp(0))
         {
+            if (this.gameObject.GetComponent<FixedJoint>() != null)
+            {
+                Destroy(this.GetComponent<FixedJoint>());
+            }
+
             //  オブジェクトのnulチェック
             if (transform.Find(CollisionName) != null)
             {
-                 //transform.Find(CollisionName).GetComponent<Rigidbody>().isKinematic = false;
                  transform.Find(CollisionName).parent = null;
             }
         }
@@ -39,8 +43,6 @@ public class PlayerController : MonoBehaviour {
         //  子オブジェクトとの距離が離れたら親子関係離す
         DistanceObject();
 
-        //Debug.Log(RayHit);
-
         //  カメラ使用時にバッテリーを減らす
         if(changeCamera.GetCameraFlag())
         {
@@ -48,7 +50,6 @@ public class PlayerController : MonoBehaviour {
             if (Battery > 0)
             {
                 Battery -= 0.0001f;
-                //Debug.Log(Battery);
             }
         }
 
@@ -74,11 +75,15 @@ public class PlayerController : MonoBehaviour {
         //  マウスの左クリックが押されていたら
         if (Input.GetMouseButton(0) && RayHit == true)
         {
-            //  持ち上げの際にオブジェクトを浮かす
-            Vector3 hitPos = hit.transform.position;
+            if (this.gameObject.GetComponent<FixedJoint>() == null)
+            {
+                this.gameObject.AddComponent<FixedJoint>();
+                this.GetComponent<FixedJoint>().connectedBody = hit.gameObject.GetComponent<Rigidbody>();
+                hit.transform.parent = this.transform;
+                this.GetComponent<FixedJoint>().enableCollision = true;
+            }
 
-            hit.transform.parent = this.transform;
-            //hit.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
             CollisionName = hit.gameObject.name;
         }
 
@@ -93,7 +98,7 @@ public class PlayerController : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(center);
 
         RaycastHit hit;
-        //if (Physics.Raycast(ray, out hit, 5.0f)) {
+
         if (Physics.Raycast(ray,out hit, 5.0f))
         {
             // hit.point が正面方向へRayをとばした際の接触座標.
@@ -122,7 +127,7 @@ public class PlayerController : MonoBehaviour {
     //  距離に応じて親子関係を離す
     void DistanceObject()
     {
-        //  オブジェクトのnulチェック
+        //  オブジェクトのnullチェック
         if (transform.Find(CollisionName) != null)
         {
             //  子オブジェクトの現在座標
@@ -135,7 +140,8 @@ public class PlayerController : MonoBehaviour {
             //  距離が一定以上なら親子関係を離す
             if(dis >= 3.0f)
             {
-                transform.Find(CollisionName).parent = null;
+                //transform.Find(CollisionName).parent = null;
+                //Destroy(this.GetComponent<FixedJoint>());
             }
 
         }

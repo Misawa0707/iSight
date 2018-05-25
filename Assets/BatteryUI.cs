@@ -11,7 +11,7 @@ public class BatteryUI : MonoBehaviour {
     GameObject player;                     //   プレイヤーオブジェくト
     PlayerController playerScript;         //   プレイヤーのスクリプト
 
-    float BatteryPercent;
+    float BatteryPercent;                  //   バッテリーの値
 
     // Use this for initialization
     void Start () {
