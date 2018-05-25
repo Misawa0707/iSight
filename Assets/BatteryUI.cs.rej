@@ -1,0 +1,10 @@
+diff a/Assets/BatteryUI.cs b/Assets/BatteryUI.cs	(rejected hunks)
+@@ -11,7 +11,7 @@
+     GameObject player;                     //   プレイヤーオブジェくト
+     PlayerController playerScript;         //   プレイヤーのスクリプト
+ 
+-    float BatteryPercent;
++    float BatteryPercent;                  //   バッテリーの値
+ 
+     // Use this for initialization
+     void Start () {

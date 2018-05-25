@@ -3,9 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
+<<<<<<< HEAD
   tags:
   - MoveBox
   - NightVisionFilter
+=======
+  tags: []
+>>>>>>> a296b28fd0733c10a558d45d24fb87bcddc9a665
   layers:
   - Default
   - TransparentFX

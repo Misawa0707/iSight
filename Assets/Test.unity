@@ -112,6 +112,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD
 --- !u!1 &69154437
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,10 +587,13 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 478673904}
+=======
+>>>>>>> a296b28fd0733c10a558d45d24fb87bcddc9a665
 --- !u!1 &620383920 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100002, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
   m_PrefabInternal: {fileID: 785349431}
+<<<<<<< HEAD
 --- !u!1 &620553485
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,6 +814,8 @@ Transform:
   m_Father: {fileID: 1693408010}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+=======
+>>>>>>> a296b28fd0733c10a558d45d24fb87bcddc9a665
 --- !u!1001 &785349431
 Prefab:
   m_ObjectHideFlags: 0
@@ -865,6 +871,7 @@ Prefab:
       propertyPath: m_JumpBob.BobAmount
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 11400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: PlayerCamera
       value: 
@@ -917,10 +924,13 @@ Prefab:
       propertyPath: m_CollisionDetection
       value: 0
       objectReference: {fileID: 0}
+=======
+>>>>>>> a296b28fd0733c10a558d45d24fb87bcddc9a665
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &785349432 stripped
+<<<<<<< HEAD
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
   m_PrefabInternal: {fileID: 785349431}
@@ -1306,6 +1316,11 @@ Transform:
   m_Father: {fileID: 1693408010}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+=======
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
+  m_PrefabInternal: {fileID: 785349431}
+>>>>>>> a296b28fd0733c10a558d45d24fb87bcddc9a665
 --- !u!1 &1395719022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,10 +1332,9 @@ GameObject:
   - component: {fileID: 1395719026}
   - component: {fileID: 1395719025}
   - component: {fileID: 1395719024}
-  - component: {fileID: 1395719027}
   m_Layer: 0
   m_Name: PlayerCamera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1332,11 +1346,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1395719022}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.79999995, z: 0}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 785349432}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &1395719024
 AudioListener:
@@ -1387,6 +1401,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+<<<<<<< HEAD
 --- !u!114 &1395719027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1491,6 +1506,8 @@ Transform:
   m_Father: {fileID: 1693408010}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+=======
+>>>>>>> a296b28fd0733c10a558d45d24fb87bcddc9a665
 --- !u!1 &1551838879 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
@@ -1521,6 +1538,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NormalCamera: {fileID: 620383920}
   PlayerCamera: {fileID: 1395719022}
+<<<<<<< HEAD
   Wall1: {fileID: 1338356802}
   Wall2: {fileID: 1665231222}
   Wall3: {fileID: 672177768}
@@ -1959,6 +1977,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1765808538}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+=======
+>>>>>>> a296b28fd0733c10a558d45d24fb87bcddc9a665
 --- !u!1 &1935258075
 GameObject:
   m_ObjectHideFlags: 0
@@ -2024,6 +2044,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+<<<<<<< HEAD
 --- !u!1 &1985695798
 GameObject:
   m_ObjectHideFlags: 0
@@ -2124,6 +2145,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> a296b28fd0733c10a558d45d24fb87bcddc9a665
 --- !u!1 &2054934298
 GameObject:
   m_ObjectHideFlags: 0
@@ -2205,7 +2228,7 @@ Transform:
   m_GameObject: {fileID: 2054934298}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 1, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1

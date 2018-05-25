@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour {
         DistanceObject();
 
         //  カメラ使用時にバッテリーを減らす
-        if(changeCamera.GetCameraFlag())
+     //   if(changeCamera.GetCameraFlag())
         {
             //  バッテリーが0以上なら
             if (Battery > 0)
