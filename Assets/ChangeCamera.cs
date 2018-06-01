@@ -17,12 +17,8 @@ public class ChangeCamera : MonoBehaviour {
     //  アイテム
     ItemManager item;
 
-    public GameObject Wall1;                //消える壁1～６
-    public GameObject Wall2;        
-    public GameObject Wall3;
-    public GameObject Wall4;
-    public GameObject Wall5;
-    public GameObject Wall6;
+    //壁の配列
+    public GameObject[] wall;
 
     // Use this for initialization
     void Start () {
@@ -35,6 +31,8 @@ public class ChangeCamera : MonoBehaviour {
         playerScript = player.GetComponent<PlayerController>();
 
         item = GetComponent<ItemManager>();
+        //タグWallを探す
+        wall = GameObject.FindGameObjectsWithTag("Wall");
     }
 
     // Update is called once per frame
@@ -51,12 +49,11 @@ public class ChangeCamera : MonoBehaviour {
             {
                 NormalCamera.SetActive(false);
                 PlayerCamera.SetActive(true);
-                Wall1.SetActive(false);
-                Wall2.SetActive(false);
-                Wall3.SetActive(false);
-                Wall4.SetActive(false);
-                Wall5.SetActive(false);
-                Wall6.SetActive(false);
+                foreach (GameObject wi in wall)
+                {
+                    //オブジェクトを非表示にする
+                    wi.SetActive(false);
+                }
 
                 // カメラ使用のフラグをtrueにする
                 useCameraFlag = true;
@@ -65,12 +62,11 @@ public class ChangeCamera : MonoBehaviour {
             {
                 NormalCamera.SetActive(true);
                 PlayerCamera.SetActive(false);
-                Wall1.SetActive(true);
-                Wall2.SetActive(true);
-                Wall3.SetActive(true);
-                Wall4.SetActive(true);
-                Wall5.SetActive(true);
-                Wall6.SetActive(true);
+                foreach (GameObject wi in wall)
+                {
+                    //オブジェクトを表示する
+                    wi.SetActive(true);
+                }
 
                 // カメラ使用のフラグをfalseにする
                 useCameraFlag = false;
