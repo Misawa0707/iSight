@@ -19,6 +19,6 @@ public class BatteryBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        slider.value = playerScript.Battery;
+           slider.value = playerScript.Battery;
 	}
 }

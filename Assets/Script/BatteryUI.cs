@@ -10,7 +10,6 @@ public class BatteryUI : MonoBehaviour {
 
     GameObject player;                     //   プレイヤーオブジェくト
     PlayerController playerScript;         //   プレイヤーのスクリプト
-
     float BatteryPercent;
 
     // Use this for initialization
@@ -23,8 +22,7 @@ public class BatteryUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        BatteryPercent = playerScript.Battery * 100.0f;
-        batteryText.text = BatteryPercent.ToString("f0") + "%";
-
+            BatteryPercent = playerScript.Battery * 100.0f;
+            batteryText.text = BatteryPercent.ToString("f0") + "%";
     }
 }

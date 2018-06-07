@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
     public float Battery;           //  バッテリー
     GameObject player;              //  プレイヤーオブジェクト
     ChangeCamera changeCamera;      //  カメラ切り替えスクリプト
-
+    public bool Flg = true;
 	// Use this for initialization
 	void Start () {
         //  変数の初期化処理
@@ -42,14 +42,16 @@ public class PlayerController : MonoBehaviour {
         Ray();
         //  子オブジェクトとの距離が離れたら親子関係離す
         DistanceObject();
-
-        //  カメラ使用時にバッテリーを減らす
-        if(changeCamera.GetCameraFlag())
+        if (Flg == true)
         {
-            //  バッテリーが0以上なら
-            if (Battery > 0)
+            //  カメラ使用時にバッテリーを減らす
+            if(changeCamera.GetCameraFlag())
             {
-                Battery -= 0.0001f;
+                //  バッテリーが0以上なら
+                if (Battery > 0)
+                {
+                    Battery -= 0.0001f;
+                }   
             }
         }
 

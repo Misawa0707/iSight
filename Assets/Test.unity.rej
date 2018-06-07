@@ -1,9 +1,0 @@
-diff a/Assets/Test.unity b/Assets/Test.unity	(rejected hunks)
-@@ -1538,6 +1538,7 @@
-   m_EditorClassIdentifier: 
-   NormalCamera: {fileID: 620383920}
-   PlayerCamera: {fileID: 1395719022}
-+<<<<<<< HEAD
-   Wall1: {fileID: 1338356802}
-   Wall2: {fileID: 1665231222}
-   Wall3: {fileID: 672177768}
