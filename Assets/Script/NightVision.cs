@@ -36,7 +36,7 @@ public class NightVision : MonoBehaviour {
             if (!Input.GetKeyDown(KeyCode.Space)) return;
 
             ////  暗視用の部屋にいるかどうか
-            //if()
+            //if ()
             //{
             //    //  暗視の部屋なら
             //    NightVisionRoom();
@@ -44,7 +44,7 @@ public class NightVision : MonoBehaviour {
             //else
             //{
             //    //  通常時なら
-                NormalRoom();
+            //    NormalRoom();
             //}
 
         }
