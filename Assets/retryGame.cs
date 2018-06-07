@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.UI;
 
 public class retryGame : MonoBehaviour
 {
@@ -76,6 +77,7 @@ public class retryGame : MonoBehaviour
 
     public void OnReturn()
     {
+        //ゲームに戻る
         OnUnPause();
         Cursor.visible = false;
     }
