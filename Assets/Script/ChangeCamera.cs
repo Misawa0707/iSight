@@ -76,6 +76,9 @@ public class ChangeCamera : MonoBehaviour {
         // バッテリーがなくなったらカメラの使用を止める
         if(playerScript.Battery < 0)
         {
+            //  バッテリーがなくなったとき
+            BatteryNone();
+
             NormalCamera.SetActive(true);
             PlayerCamera.SetActive(false);
         }
@@ -105,10 +108,10 @@ public class ChangeCamera : MonoBehaviour {
             {
                 //  カメラエフェクトオフ
                 PlayerCamera.GetComponent<PostEffect>().enabled = false;
-                player.GetComponent<NightVision>().enabled = true;
                 //  フィルターの値をリセット
                 player.GetComponent<NightVision>().GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.5f);
                 player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.2f);
+                player.GetComponent<NightVision>().enabled = true;
             }
             else
             {
@@ -122,5 +125,20 @@ public class ChangeCamera : MonoBehaviour {
             }
         }
         
+    }
+
+    //  バッテリーがなくなったときの処理
+    public void BatteryNone()
+    {
+        //  フィルターの値をリセット
+        player.GetComponent<NightVision>().GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
+        player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+        player.GetComponent<NightVision>().enabled = false;
+
+        foreach (GameObject wi in wall)
+        {
+            //オブジェクトを表示する
+            wi.SetActive(true);
+        }
     }
 }

@@ -40,8 +40,7 @@ public class PlayerController : MonoBehaviour {
 
         //  レイを飛ばす処理
         Ray();
-        //  子オブジェクトとの距離が離れたら親子関係離す
-        DistanceObject();
+
         if (Flg == true)
         {
             //  カメラ使用時にバッテリーを減らす
@@ -123,31 +122,6 @@ public class PlayerController : MonoBehaviour {
 
         //Rayの可視化   ↓Rayの原点　　　　↓Rayの方向　　　↓Rayの色
         Debug.DrawLine(ray.origin, ray.direction * distance, Color.red);
-    }
-
-
-    //  距離に応じて親子関係を離す
-    void DistanceObject()
-    {
-        //  オブジェクトのnullチェック
-        if (transform.Find(CollisionName) != null)
-        {
-            //  子オブジェクトの現在座標
-            Vector3 posChild = transform.Find(CollisionName).transform.position;
-            //  プレイヤーの現在座標
-            Vector3 posPlayer = transform.position;
-            //  二つのオブジェクトの距離
-            float dis = Vector3.Distance(posPlayer, posChild);
-
-            //  距離が一定以上なら親子関係を離す
-            if(dis >= 3.0f)
-            {
-                //transform.Find(CollisionName).parent = null;
-                //Destroy(this.GetComponent<FixedJoint>());
-            }
-
-        }
-       
     }
 
 }

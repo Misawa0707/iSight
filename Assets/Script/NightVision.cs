@@ -44,7 +44,7 @@ public class NightVision : MonoBehaviour {
             //else
             //{
             //    //  通常時なら
-            //    NormalRoom();
+                NormalRoom();
             //}
 
         }
