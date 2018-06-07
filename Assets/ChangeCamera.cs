@@ -75,7 +75,6 @@ public class ChangeCamera : MonoBehaviour {
                 // カメラ使用のフラグをfalseにする
                 useCameraFlag = false;
             }
-
         }
 
         // バッテリーがなくなったらカメラの使用を止める
@@ -86,11 +85,12 @@ public class ChangeCamera : MonoBehaviour {
         }
 
         //アイテムを所持しているかどうか
-        if (item.GetItemFlag(ItemManager.Item.NightVisionFilter))
+        //if (item.GetItemFlag(ItemManager.Item.NightVisionFilter))
         {
-            ChangeFilter();
+            if (!PlayerCamera.activeSelf) return;
+                ChangeFilter();
         }
-	}
+    }
     
 
     // カメラの使用状態の取得
