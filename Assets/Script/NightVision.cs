@@ -15,7 +15,7 @@ public class NightVision : MonoBehaviour {
     private bool FilterFlag;
 
     //  アイテム
-    //ItemManager item;
+    ItemManager item;
 
     // Use this for initialization
     void Start () {
@@ -33,29 +33,40 @@ public class NightVision : MonoBehaviour {
         //if (item.GetItemFlag(ItemManager.Item.NightVisionFilter))
         {
             //  スペースキーが押されたら
-            if (!Input.GetKeyDown(KeyCode.Space)) return;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                //if()
+                //{
+                //    NightVisionRoom();
+                //}else{
+                //    NormalRoom();
+                //}
 
-            ////  暗視用の部屋にいるかどうか
-            //if ()
-            //{
-            //    //  暗視の部屋なら
-            //    NightVisionRoom();
-            //}
-            //else
-            //{
-            //    //  通常時なら
-            //    NormalRoom();
-            //}
-
+                //if (BlackImage.color.a > 0.0f) return;
+            }
         }
     }
-
-    //  暗視用の部屋処理
     void NightVisionRoom()
     {
-        if (!FilterFlag)
-        {
 
+                if (!FilterFlag)
+                {
+                    
+                    GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
+                    BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+                    FilterFlag = true;
+                }
+                else
+                {
+                    GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.5f);
+                    BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.2f);
+                    FilterFlag = false;
+                }
+     }
+    void NormalRoom()
+    {
+        if(!FilterFlag)
+        {
             GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
             BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
             FilterFlag = true;
@@ -67,22 +78,7 @@ public class NightVision : MonoBehaviour {
             FilterFlag = false;
         }
     }
-
-    //  通常時の暗視フィルター処理
-    void NormalRoom()
-    {
-        if (!FilterFlag)
-        {
-
-            GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
-            BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
-            FilterFlag = true;
-        }
-        else
-        {
-            GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.5f);
-            BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.2f);
-            FilterFlag = false;
-        }
-    }
 }
+        
+    
+
