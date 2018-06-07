@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //  暗視フィルター
-public class NightVision : MonoBehaviour {
+public class NightVision : MonoBehaviour
+{
 
     [SerializeField]
     //  暗闇用
@@ -18,7 +19,8 @@ public class NightVision : MonoBehaviour {
     //ItemManager item;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         //  値の初期化
         GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.5f);
         BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.2f);
@@ -36,7 +38,7 @@ public class NightVision : MonoBehaviour {
             if (!Input.GetKeyDown(KeyCode.Space)) return;
 
             ////  暗視用の部屋にいるかどうか
-            //if ()
+            //if()
             //{
             //    //  暗視の部屋なら
             //    NightVisionRoom();
@@ -44,7 +46,7 @@ public class NightVision : MonoBehaviour {
             //else
             //{
             //    //  通常時なら
-            //    NormalRoom();
+            NormalRoom();
             //}
 
         }

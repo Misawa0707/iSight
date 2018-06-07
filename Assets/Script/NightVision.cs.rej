@@ -1,0 +1,10 @@
+diff a/Assets/Script/NightVision.cs b/Assets/Script/NightVision.cs	(rejected hunks)
+@@ -36,7 +36,7 @@
+             if (!Input.GetKeyDown(KeyCode.Space)) return;
+ 
+             ////  暗視用の部屋にいるかどうか
+-            //if()
++            //if ()
+             //{
+             //    //  暗視の部屋なら
+             //    NightVisionRoom();
