@@ -6,9 +6,7 @@ TagManager:
   tags:
   - NightVisionFilter
   - MoveBox
-  - Key
-  - NightVisionFilterIcon
-  - KeyIcon
+  - Wall
   layers:
   - Default
   - TransparentFX
