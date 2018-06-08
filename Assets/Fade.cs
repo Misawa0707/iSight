@@ -18,8 +18,7 @@ public class Fade : MonoBehaviour {
         //コルーチンで待ち時間の計算
         fadeTime = 1f * fadeTime / 10f;
         StartCoroutine("FadeIn");
-        
-	}
+    }
 
     IEnumerator FadeIn()
     {

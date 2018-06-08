@@ -81,4 +81,10 @@ public class retryGame : MonoBehaviour
         OnUnPause();
         Cursor.visible = false;
     }
+
+    public void OnTitle()
+    {
+        //タイトルに戻る
+        SceneManager.LoadScene("Title");
+    }
 }
