@@ -11,7 +11,7 @@ public class ChangeCamera : MonoBehaviour {
                                               
     private bool useCameraFlag;            // カメラを使用しているかどうかのフラグ
                                               
-    GameObject player;                     // プレイヤーオブジェくト
+    GameObject player;                     // プレイヤーオブジェクト
     PlayerController playerScript;         // プレイヤーのスクリプト
 
     //  アイテム
