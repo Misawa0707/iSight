@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class trap : MonoBehaviour
 {
-    public GameObject Wall;
-
-    void OnTriggerEnter(Collider other)
+    
+    public GameObject door;
+    public ItemManager itemkey;
+  
+    void Start()
     {
-        if (other.gameObject.tag == "Player")
+        itemkey = itemkey.GetComponent<ItemManager>();
+    }
+        void OnTriggerEnter(Collider other)
+    {
+        if (itemkey.GetItemFlag(ItemManager.Item.Key)==true)
         {
-            Debug.Log("ひらく");
-            Wall.SetActive(false);
+              if (other.gameObject.tag == "Player")
+             {
+                   Debug.Log("ひらく");
+               door.SetActive(false);
+             }
+
         }
     }
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.Log("とじる");
-            Wall.SetActive(true);
-        }
-    }
-
 }
