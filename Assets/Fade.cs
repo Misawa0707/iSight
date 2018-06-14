@@ -8,13 +8,13 @@ public class Fade : MonoBehaviour {
     //フェードインの秒数
     [SerializeField]
     private float fadeTime;
-
     //背景
     private Image image;
 
 	// Use this for initialization
 	void Start () {
         image = transform.Find("Panel").GetComponent<Image>();
+  
         //コルーチンで待ち時間の計算
         fadeTime = 1f * fadeTime / 10f;
         StartCoroutine("FadeIn");
