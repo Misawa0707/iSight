@@ -15,9 +15,12 @@ public class Load : MonoBehaviour
     [SerializeField]
     private Slider slider;
 
+    public GameObject menu;
     public void NextScene()
     {
-        //　ロード画面UIをアクティブにする
+        //　タイトルの非表示にする
+        menu.SetActive(false);
+        //　ロード画面UIを表示する
         loadUI.SetActive(true);
 
         //　コルーチンを開始
@@ -28,6 +31,7 @@ public class Load : MonoBehaviour
     {
         // シーンの読み込みをする
         async = SceneManager.LoadSceneAsync("Play2");
+        //シーンの破棄 
 
         //　読み込みが終わるまで進捗状況をスライダーの値に反映させる
         while (!async.isDone)

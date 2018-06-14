@@ -17,6 +17,7 @@ public class retryGame : MonoBehaviour
     {
         OnUnPause();
         playerBattery = playerBattery.GetComponent<PlayerController>();
+      
     }
 
     public void Update()
@@ -84,7 +85,8 @@ public class retryGame : MonoBehaviour
 
     public void OnTitle()
     {
+
         //タイトルに戻る
-        SceneManager.LoadScene("Title");
+       SceneManager.LoadScene("Title",LoadSceneMode.Single);
     }
 }

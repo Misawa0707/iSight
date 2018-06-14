@@ -14,7 +14,7 @@ public class Fade : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         image = transform.Find("Panel").GetComponent<Image>();
-     
+  
         //コルーチンで待ち時間の計算
         fadeTime = 1f * fadeTime / 10f;
         StartCoroutine("FadeIn");
