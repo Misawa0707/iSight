@@ -24,6 +24,11 @@ using System.Linq;
 
 //---------------------------------------------------------------------------
 
+//  アイテムデータクラス
+public class ItemData
+{
+    public ItemManager.Item type;
+}
 
 public class ItemManager : MonoBehaviour
 {
@@ -36,37 +41,53 @@ public class ItemManager : MonoBehaviour
     {
         NightVisionFilter,          //  暗視フィルター
         Key,                        //  鍵
-        Battery                     //  バッテリー
+        Battery,                    //  バッテリー
+        HintFilter                  //  ヒントフィルター
     };
 
     //  アイテムを持っているかどうかのフラグ
     [SerializeField]
-    //private bool[] itemFlags = new bool[ItemNum];
+    private bool[] itemFlags = new bool[ItemNum];
     private List<Item> itemList = new List<Item>();
     private List<GameObject> IconList = new List<GameObject>();
 
     string ItemName;            //  取得したアイテム名
     bool ItemFlag;              //  アイテムを取得したかどうか
 
+    bool HintFlag;
+    int ElapsedTime = 0;
+
+    //  アイテムアイコン
     [SerializeField]
     GameObject NightVisionIcon;
     [SerializeField]
     GameObject KeyIcon;
     [SerializeField]
+    GameObject BatteryIcon;
+    [SerializeField]
     GameObject CanvasObject;
+
+    [SerializeField] GameObject SubCamera;
+    [SerializeField] Material GlowMat;
+
+    GameObject player;                     // プレイヤーオブジェクト
+    PlayerController playerScript;         // プレイヤーのスクリプト
 
     // Use this for initialization
     void Start()
     {
         //  値の初期化
-        //for(int i = 0; i < ItemNum; i++)
-        //{
-        //    itemFlags[i] = false;
-        //}
-        //itemFlags[(int)Item.NightVisionFilter] = true;
+        for (int i = 0; i < ItemNum; i++)
+        {
+            itemFlags[i] = false;
+        }
 
         ItemFlag = false;
+        HintFlag = false;
 
+        //  プレイヤーのスクリプトの取得
+        player = GameObject.Find("Player");
+        playerScript = player.GetComponent<PlayerController>();
 
         //var key1 = Instantiate( keyPrefab );
         //var key2 = Instantiate(keyPrefab);
@@ -87,19 +108,41 @@ public class ItemManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Rキーが押されたら
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            //  バッテリーアイテムを使用したときの処理
+            UseBattery();
+        }
 
+        //  Qキーが押されたら
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            //  ヒントを使用したときの処理
+            UseHint();
+            HintFlag = true;
+        }
+        //  Hintを使ったら
+        if(HintFlag)
+        {
+            ElapsedTime++;
+        }
+
+        //  時間経過でヒントを消す
+        if(ElapsedTime > 180)
+        {
+            //  ヒント終了時の処理
+            HintEnd();
+            HintFlag = false;
+            ElapsedTime = 0;
+        }
     }
 
     //  指定したアイテムを持っているかどうか
-    //public bool GetItemFlag(Item item){
-    //return itemFlags[(int)item];
-    //}
-
-    //  指定したアイテムのフラグを切り替える
-    //public void SetItemFlag(Item item, bool flag)
-    //{
-    //    itemFlags[(int)item] = flag;
-    //}
+    public bool GetItemFlag(Item item)
+    {
+        return itemFlags[(int)item];
+    }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -142,17 +185,15 @@ public class ItemManager : MonoBehaviour
                 ItemFlag = true;
                 break;
 
+            //  ヒントフィルター
+            case "HintFilter":
+                itemList.Add(Item.HintFilter);
+                ItemFlag = true;
+                break;
+
             default:
                 break;
         }
-    }
-
-    //  アイテムを所持しているか
-    public bool isHaveItem(Item item)
-    {
-        bool isHave;
-        isHave = itemList.Contains(item);
-        return isHave;
     }
 
     //  アイテム欄の表示
@@ -175,6 +216,7 @@ public class ItemManager : MonoBehaviour
                     //  含まれていなければ加える
                     if (!exitNVIcon)
                     {
+                        itemFlags[(int)Item.NightVisionFilter] = true;
                         NVIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
                         NVIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
                         NVIcon.transform.position = new Vector3((275.0f + i * 50), 24.0f, 0);
@@ -198,6 +240,7 @@ public class ItemManager : MonoBehaviour
                     //  含まれていなければ加える
                     if (!exitKeyIcon)
                     {
+                        itemFlags[(int)Item.Key] = true;
                         KIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
                         KIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
                         KIcon.transform.position = new Vector3((275.0f + i * 50), 24.0f, 0);
@@ -211,11 +254,86 @@ public class ItemManager : MonoBehaviour
                     }
                     break;
 
+
+                case Item.Battery:
+                    //  アイコンの生成
+                    GameObject BIcon = Instantiate(BatteryIcon);
+                    //  リスト内に同じアイテムが含まれるかどうかの検出
+                    bool exitBIcon = IconList.Any(c => c.name == BIcon.name);
+
+                    //  含まれていなければ加える
+                    if (!exitBIcon)
+                    {
+                        itemFlags[(int)Item.Battery] = true;
+                        BIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
+                        BIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+                        BIcon.transform.position = new Vector3((275.0f + i * 50), 24.0f, 0);
+                        BIcon.transform.SetParent(CanvasObject.transform, false);
+                        IconList.Add(BIcon);
+                    }
+                    else
+                    {
+                        //  存在していれば破棄
+                        Destroy(BIcon);
+                    }
+                    break;
+
                 default:
                     break;
             }
 
         }
+    }
+
+    void UseBattery()
+    {
+        if(GetItemFlag(Item.Battery))
+        {
+            playerScript.Battery = 1.0f;
+            //RemoveItem();
+
+        }
+    }
+
+    void UseHint()
+    {
+
+        SubCamera.SetActive(true);
+
+        GameObject[] wall = GameObject.FindGameObjectsWithTag("Wall");
+
+        foreach (GameObject wi in wall)
+        {
+            wi.layer = LayerMask.NameToLayer("Hint");
+            GlowMat.EnableKeyword("_EMISSION");
+            GlowMat.SetColor("_EmissionColor", Color.red);
+        }
+        //Input.a
+    }
+
+    void HintEnd()
+    {
+        SubCamera.SetActive(false);
+
+        GameObject[] wall = GameObject.FindGameObjectsWithTag("Wall");
+
+        foreach (GameObject wi in wall)
+        {
+
+            wi.layer = LayerMask.NameToLayer("Default");
+            GlowMat.SetColor("_EmissionColor", Color.white);
+            GlowMat.DisableKeyword("_EMISSION");
+        }
+    }
+
+    //  アイテムの削除
+    void RemoveItem()
+    {
+        itemFlags[(int)Item.Battery] = false;
+
+        //  アイコンリストから削除
+
+        //  アイテムリストから削除
     }
 }
 

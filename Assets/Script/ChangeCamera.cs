@@ -89,6 +89,7 @@ public class ChangeCamera : MonoBehaviour {
             if (!PlayerCamera.activeSelf) return;
                 ChangeFilter();
         }
+
     }
     
 
@@ -115,7 +116,7 @@ public class ChangeCamera : MonoBehaviour {
             }
             else
             {
-                //  カメラエフェクトオフ
+                //  カメラエフェクトオン
                 PlayerCamera.GetComponent<PostEffect>().enabled = true;
 
                 //  フィルターの値をリセット
