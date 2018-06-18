@@ -30,7 +30,7 @@ public class Load : MonoBehaviour
     IEnumerator LoadData()
     {
         // シーンの読み込みをする
-        async = SceneManager.LoadSceneAsync("Play2");
+        async = SceneManager.LoadSceneAsync("Play2",LoadSceneMode.Single);
         //シーンの破棄 
 
         //　読み込みが終わるまで進捗状況をスライダーの値に反映させる

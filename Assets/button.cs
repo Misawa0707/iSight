@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class button : MonoBehaviour {
-
     public GameObject menu;
-         
-	// Use this for initialization
-	void Start () {
-		
-	}
+    // Use this for initialization
+    void Start () {
+      
+    }
 	
 	// Update is called once per frame
 	void Update () {
