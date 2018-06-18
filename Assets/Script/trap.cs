@@ -1,26 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class trap : MonoBehaviour
 {
-    public GameObject Wall;
-
+    
+    public GameObject door;
+    public ItemManager itemkey;
+    public GameObject text;
+    bool Textflag = false;
+    float time;
+    float timeMax = 60.0f;
+    void Start()
+    {
+        itemkey = itemkey.GetComponent<ItemManager>();
+    }
     void OnTriggerEnter(Collider other)
     {
+      　//プレイヤーと当たっていたら
         if (other.gameObject.tag == "Player")
-        {
-            Debug.Log("ひらく");
-            Wall.SetActive(false);
+        { //鍵を持っていたら   
+            if (itemkey.GetItemFlag(ItemManager.Item.Key) == true)
+            {
+                   door.SetActive(false);
+            }
+            else
+            {
+                text.SetActive(true);
+                time =0;
+                Textflag = true;
+            }
         }
     }
-    void OnTriggerExit(Collider other)
+    void Update()
     {
-        if (other.gameObject.tag == "Player")
+        if(Textflag==true)
         {
-            Debug.Log("とじる");
-            Wall.SetActive(true);
+            time += 1;
+            if (time > timeMax)
+            {
+                text.SetActive(false);
+                Textflag = false;
+            }
         }
     }
-
 }

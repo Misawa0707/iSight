@@ -10,11 +10,13 @@ public class retryGame : MonoBehaviour
     public GameObject player;
     public GameObject OnPanel;
     private bool pauseGame = true;
+   
     //  batteryUIのスクリプト
     public PlayerController playerBattery;
 
     void Start()
     {
+       
         OnUnPause();
         playerBattery = playerBattery.GetComponent<PlayerController>();
       
@@ -73,7 +75,7 @@ public class retryGame : MonoBehaviour
     public void OnRetry()
     {
         //リセット
-        SceneManager.LoadScene("Play2");
+        SceneManager.LoadScene("Play2",LoadSceneMode.Single);
     }
 
     public void OnReturn()
@@ -85,8 +87,7 @@ public class retryGame : MonoBehaviour
 
     public void OnTitle()
     {
-
         //タイトルに戻る
-       SceneManager.LoadScene("Title",LoadSceneMode.Single);
+       SceneManager.LoadScene("Title");
     }
 }

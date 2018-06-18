@@ -14,9 +14,10 @@ public class NightVision : MonoBehaviour
     public Image GreenImage;
 
     private bool FilterFlag;
-
+    private Flag Nflag;
+    
     //  アイテム
-    //ItemManager item;
+    ItemManager item;
 
     // Use this for initialization
     void Start()
@@ -25,31 +26,45 @@ public class NightVision : MonoBehaviour
         GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.5f);
         BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.2f);
         FilterFlag = false;
-        //item = GetComponent<ItemManager>();
+        item = GetComponent<ItemManager>();
+        Nflag = GetComponent<Flag>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //アイテムを所持しているかどうか
-        //if (item.GetItemFlag(ItemManager.Item.NightVisionFilter))
+        if (item.GetItemFlag(ItemManager.Item.NightVisionFilter))
         {
             //  スペースキーが押されたら
             if (!Input.GetKeyDown(KeyCode.Space)) return;
 
-            ////  暗視用の部屋にいるかどうか
-            //if()
-            //{
-            //    //  暗視の部屋なら
-            //    NightVisionRoom();
-            //}
-            //else
-            //{
-            //    //  通常時なら
-            NormalRoom();
-            //}
+            //  暗視用の部屋にいるかどうか
+            if (Nflag == true)
+            {
+                Debug.Log("22222222222222222");
+                //  暗視の部屋なら
+                NightVisionRoom();
+            }
+            else
+            {
+                Debug.Log("1111111111");
+                //  通常時なら
+                NormalRoom();
+            }
+        }
+        else if (Nflag == true)
+        {
+            GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
+            BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+            FilterFlag = true;
+        }
+        else
+        {
 
         }
+
+
     }
 
     //  暗視用の部屋処理
@@ -87,4 +102,6 @@ public class NightVision : MonoBehaviour
             FilterFlag = false;
         }
     }
+
+   
 }

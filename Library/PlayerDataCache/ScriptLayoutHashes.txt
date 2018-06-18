@@ -17,8 +17,7 @@ af723155c251fcfa0e66530a75f3ea4c UnityEngine.Timeline.dll:UnityEngine.Timeline.T
 c08b196716247885d3b27f7f282b2568 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ImageEffectBase
 a30beadf4d109f44144b9a9f42e61cbf Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.BlurOptimized
 8e7e3149d1860ae8b7a4859e0682ab15 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.FirstPerson.FirstPersonController
-0bd808ce1ffd1b45a39b2496c65c8f23 Assembly-CSharp.dll:.PanelManager
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Button
+723e02209bfaadc57ad8585f2a261c40 Assembly-CSharp.dll:.PanelManager
 23b50ef73e2c1a8a76860d35bcbbf8fc Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.GlobalFog
 daabd8d8800a87cff11f866c4d06a232 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ContrastStretch
 7d0aa0f64a823db9982e4fed92870a4c Assembly-CSharp.dll:.ResizePanel
@@ -57,7 +56,7 @@ c63db43c730fa2cbb8ca07de15898cb6 UnityEngine.UI.dll:UnityEngine.UI.Toggle
 f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 86d36c43c53541d667100dc90b89cfba UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 1b8c02d0aa82fbf036a2b9b2d713eec3 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
-538688e307ef0e824493aa725fc093c5 Assembly-CSharp.dll:.ItemManager
+4e10743936425bb4b00bfb25886f9c02 Assembly-CSharp.dll:.ItemManager
 8e9f5b922979e9356a11d2ee2b32ee60 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.TiltInput
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -111,7 +110,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 af723155c251fcfa0e66530a75f3ea4c UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 38f2aefc9dcf0f8107e7bd37238b3096 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.Blur
 f5ce04d51633a5a2e05a731aa45ef200 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.MotionBlur
-8fc4038111293de50efaafec8157aff2 Assembly-CSharp.dll:.trap
+db7185f295c60a11b41aada05d8a5c35 Assembly-CSharp.dll:.trap
 09f82f169b26f907f6876a32b8b77b1c Assembly-CSharp.dll:.Fade
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
@@ -129,6 +128,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 40d41f498420a9b3985f6fc7e5763447 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.Bloom
 78a2a366a0a3b585e1178d2dd9d006ab Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.WaypointProgressTracker
+7bd8768b90b905d5b5541fe42addb342 Assembly-CSharp.dll:.button
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ParentExpansion
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ActiveStateToggler
@@ -215,6 +215,7 @@ a51173280b81aed3c792da6e9cebc4cd Assembly-CSharp-firstpass.dll:UnityStandardAsse
 db3b233e35a88802fed1717d19c3d9ec Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.FollowTarget
 a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.TouchPad
 0ad469aca31264c6140b1e503c43ab6b Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.TimedObjectDestructor
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.HintCamera
 5465eae51985f0cb194548215d2133ec Assembly-CSharp.dll:.ScrollDetailTexture
 5d9a46b50fc7b80ed5203747a409f945 Assembly-CSharp.dll:.retryGame
 53dbd7baa3c8da2f87828dd70d70dae4 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.DepthOfFieldDeprecated
