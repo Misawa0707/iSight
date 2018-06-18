@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+using UnityEngine.UI;
+
 //---------------------------------------------------------------------------
 //インベントリシステム
 
@@ -24,17 +26,11 @@ using System.Linq;
 
 //---------------------------------------------------------------------------
 
-//  アイテムデータクラス
-public class ItemData
-{
-    public ItemManager.Item type;
-}
-
 public class ItemManager : MonoBehaviour
 {
 
-    //  アイテム数
-    const int ItemNum = 3;
+    //  アイテム種類数
+    const int ItemNum = 4;
 
     //  アイテムの種類
     public enum Item
@@ -42,11 +38,10 @@ public class ItemManager : MonoBehaviour
         NightVisionFilter,          //  暗視フィルター
         Key,                        //  鍵
         Battery,                    //  バッテリー
-        HintFilter                  //  ヒントフィルター
+        HintItem                    //  ヒントアイテム
     };
 
     //  アイテムを持っているかどうかのフラグ
-    [SerializeField]
     private bool[] itemFlags = new bool[ItemNum];
     private List<Item> itemList = new List<Item>();
     private List<GameObject> IconList = new List<GameObject>();
@@ -54,7 +49,7 @@ public class ItemManager : MonoBehaviour
     string ItemName;            //  取得したアイテム名
     bool ItemFlag;              //  アイテムを取得したかどうか
 
-    bool HintFlag;
+    public bool HintFlag;
     int ElapsedTime = 0;
 
     //  アイテムアイコン
@@ -65,10 +60,15 @@ public class ItemManager : MonoBehaviour
     [SerializeField]
     GameObject BatteryIcon;
     [SerializeField]
+    GameObject HintIcon;
+    [SerializeField]
     GameObject CanvasObject;
 
     [SerializeField] GameObject SubCamera;
     [SerializeField] Material GlowMat;
+
+    [SerializeField] Image HintImage;
+     bool InputFlag = false;
 
     GameObject player;                     // プレイヤーオブジェクト
     PlayerController playerScript;         // プレイヤーのスクリプト
@@ -103,6 +103,7 @@ public class ItemManager : MonoBehaviour
         //    IconList.Add(obj);
         //}
 
+        HintImage.color = new Color(1.0f, 0.0f, 0.0f, 0.0f);
     }
 
     // Update is called once per frame
@@ -118,9 +119,12 @@ public class ItemManager : MonoBehaviour
         //  Qキーが押されたら
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            //  ヒントを使用したときの処理
-            UseHint();
-            HintFlag = true;
+            if (GetItemFlag(Item.HintItem))
+            {
+                //  ヒントを使用したときの処理
+                UseHint();
+                HintFlag = true;
+            }
         }
         //  Hintを使ったら
         if(HintFlag)
@@ -144,6 +148,11 @@ public class ItemManager : MonoBehaviour
         return itemFlags[(int)item];
     }
 
+    public bool GetInputFlag()
+    {
+        return InputFlag;
+    }
+
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         //  アイテムの名前の取得
@@ -154,6 +163,7 @@ public class ItemManager : MonoBehaviour
         //  アイテムを取得したならそのアイテムを消す
         if (ItemFlag)
         {
+            IconAdd();
             InventoryDisplay();
             Destroy(hit.gameObject);
             ItemFlag = false;
@@ -168,27 +178,40 @@ public class ItemManager : MonoBehaviour
         {
             //  暗視フィルター
             case "NightVisionFilter":
-                itemList.Add(Item.NightVisionFilter);
-                ItemFlag = true;
+                if (!itemList.Contains(Item.NightVisionFilter))
+                {
+                    itemList.Add(Item.NightVisionFilter);
+                    ItemFlag = true;
+                }
 
                 break;
 
             //  鍵
             case "Key":
-                itemList.Add(Item.Key);
-                ItemFlag = true;
+                if (!itemList.Contains(Item.Key))
+                {
+                    itemList.Add(Item.Key);
+                    ItemFlag = true;
+
+                }
                 break;
 
             //  バッテリー
             case "Battery":
-                itemList.Add(Item.Battery);
-                ItemFlag = true;
+                if (!itemList.Contains(Item.Battery))
+                {
+                    itemList.Add(Item.Battery);
+                    ItemFlag = true;
+                }
                 break;
 
             //  ヒントフィルター
-            case "HintFilter":
-                itemList.Add(Item.HintFilter);
-                ItemFlag = true;
+            case "Hint":
+                if (!itemList.Contains(Item.HintItem))
+                {
+                    itemList.Add(Item.HintItem);
+                    ItemFlag = true;
+                }
                 break;
 
             default:
@@ -197,9 +220,8 @@ public class ItemManager : MonoBehaviour
     }
 
     //  アイテム欄の表示
-    void InventoryDisplay()
+    void IconAdd()
     {
-        
 
         for (int i = 0; i < itemList.Count; i++)
         {
@@ -219,7 +241,6 @@ public class ItemManager : MonoBehaviour
                         itemFlags[(int)Item.NightVisionFilter] = true;
                         NVIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
                         NVIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-                        NVIcon.transform.position = new Vector3((275.0f + i * 50), 24.0f, 0);
                         NVIcon.transform.SetParent(CanvasObject.transform, false);
                         IconList.Add(NVIcon);
                     }
@@ -243,7 +264,6 @@ public class ItemManager : MonoBehaviour
                         itemFlags[(int)Item.Key] = true;
                         KIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
                         KIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-                        KIcon.transform.position = new Vector3((275.0f + i * 50), 24.0f, 0);
                         KIcon.transform.SetParent(CanvasObject.transform, false);
                         IconList.Add(KIcon);
                     }
@@ -267,7 +287,6 @@ public class ItemManager : MonoBehaviour
                         itemFlags[(int)Item.Battery] = true;
                         BIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
                         BIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-                        BIcon.transform.position = new Vector3((275.0f + i * 50), 24.0f, 0);
                         BIcon.transform.SetParent(CanvasObject.transform, false);
                         IconList.Add(BIcon);
                     }
@@ -278,6 +297,28 @@ public class ItemManager : MonoBehaviour
                     }
                     break;
 
+                case Item.HintItem:
+                    //  アイコンの生成
+                    GameObject HIcon = Instantiate(HintIcon);
+                    //  リスト内に同じアイテムが含まれるかどうかの検出
+                    bool exitHIcon = IconList.Any(c => c.name == HIcon.name);
+
+                    //  含まれていなければ加える
+                    if (!exitHIcon)
+                    {
+                        itemFlags[(int)Item.HintItem] = true;
+                        HIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
+                        HIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+                        HIcon.transform.SetParent(CanvasObject.transform, false);
+                        IconList.Add(HIcon);
+                    }
+                    else
+                    {
+                        //  存在していれば破棄
+                        Destroy(HIcon);
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -285,20 +326,54 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    void UseBattery()
+    //  アイテム欄の表示
+    void InventoryDisplay()
+    {
+        for (int i = 0; i < IconList.Count; i++)
+        {
+            // transform.position は3Dや2Dのゲームオブジェクトの位置設定
+            //IconList[i].transform.position = new Vector3((275.0f + i * 50), 24.0f, 0);
+
+            // RectTransform.anchoredPosition はUIのゲームオブジェクトの位置設定
+            // Canvas　内のオブジェクトのこと
+            IconList[i].GetComponent<RectTransform>().anchoredPosition = new Vector2((275.0f + i * 50), 24.0f);
+        }
+    }
+
+    //  鍵使用時の処理
+    void UseKey()
+    {
+        if (GetItemFlag(Item.Key))
+        {
+
+
+            GameObject obj = GameObject.FindGameObjectWithTag("KeyIcon");
+            RemoveItem(obj, Item.Key);
+        }
+    }
+
+        //  バッテリーの使用処理
+        void UseBattery()
     {
         if(GetItemFlag(Item.Battery))
         {
+
+            if(playerScript.Battery == 1.0f) return;
             playerScript.Battery = 1.0f;
-            //RemoveItem();
+            GameObject obj = GameObject.FindGameObjectWithTag("BatteryIcon");
+            RemoveItem(obj, Item.Battery);
 
         }
     }
 
+    //  ヒント使用時の処理
     void UseHint()
     {
+        InputFlag = true;
 
         SubCamera.SetActive(true);
+
+        HintImage.color = new Color(1.0f, 0.0f, 0.0f, 0.2f);
 
         GameObject[] wall = GameObject.FindGameObjectsWithTag("Wall");
 
@@ -308,11 +383,16 @@ public class ItemManager : MonoBehaviour
             GlowMat.EnableKeyword("_EMISSION");
             GlowMat.SetColor("_EmissionColor", Color.red);
         }
-        //Input.a
+        //  アイテムの削除
+        GameObject obj = GameObject.FindGameObjectWithTag("HintIcon");
+        RemoveItem(obj, Item.HintItem);
     }
 
+    //  ヒント終了時の処理
     void HintEnd()
     {
+        InputFlag = false;
+
         SubCamera.SetActive(false);
 
         GameObject[] wall = GameObject.FindGameObjectsWithTag("Wall");
@@ -324,16 +404,26 @@ public class ItemManager : MonoBehaviour
             GlowMat.SetColor("_EmissionColor", Color.white);
             GlowMat.DisableKeyword("_EMISSION");
         }
+
+        HintImage.color = new Color(1.0f, 0.0f, 0.0f, 0.0f);
     }
 
     //  アイテムの削除
-    void RemoveItem()
+    void RemoveItem( GameObject obj, Item item )
     {
-        itemFlags[(int)Item.Battery] = false;
+        itemFlags[(int)item] = false;
 
         //  アイコンリストから削除
+        var indexIcon = IconList.FindIndex(c => c.name == obj.name);
+        Destroy(IconList[indexIcon]);
+        IconList.RemoveAt(indexIcon);
 
         //  アイテムリストから削除
+        var indexItem = itemList.FindIndex(c => c == item);
+        itemList.RemoveAt(indexItem);
+
+        //  リストの更新
+        InventoryDisplay();
     }
 }
 

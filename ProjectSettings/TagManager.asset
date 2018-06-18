@@ -11,6 +11,9 @@ TagManager:
   - KeyIcon
   - NightVisionFilterIcon
   - Battery
+  - HintIcon
+  - Hint
+  - BatteryIcon
   layers:
   - Default
   - TransparentFX

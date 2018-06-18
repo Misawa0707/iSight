@@ -84,7 +84,7 @@ public class ChangeCamera : MonoBehaviour {
         }
 
         //アイテムを所持しているかどうか
-        //if (item.GetItemFlag(ItemManager.Item.NightVisionFilter))
+        if (item.GetItemFlag(ItemManager.Item.NightVisionFilter))
         {
             if (!PlayerCamera.activeSelf) return;
                 ChangeFilter();
@@ -113,6 +113,12 @@ public class ChangeCamera : MonoBehaviour {
                 player.GetComponent<NightVision>().GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.5f);
                 player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.2f);
                 player.GetComponent<NightVision>().enabled = true;
+
+                foreach (GameObject wi in wall)
+                {
+                    //オブジェクトを表示する
+                    wi.SetActive(true);
+                }
             }
             else
             {
@@ -123,6 +129,12 @@ public class ChangeCamera : MonoBehaviour {
                 player.GetComponent<NightVision>().GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
                 player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
                 player.GetComponent<NightVision>().enabled = false;
+
+                foreach (GameObject wi in wall)
+                {
+                    //オブジェクトを表示する
+                    wi.SetActive(false);
+                }
             }
         }
         
