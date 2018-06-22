@@ -11,9 +11,6 @@ TagManager:
   - KeyIcon
   - NightVisionFilterIcon
   - Battery
-  - HintIcon
-  - Hint
-  - BatteryIcon
   layers:
   - Default
   - TransparentFX
@@ -50,4 +47,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Hint
+    uniqueID: 3508407915
     locked: 0

@@ -13,6 +13,9 @@ public class ChangeCamera : MonoBehaviour {
                                               
     GameObject player;                     // プレイヤーオブジェクト
     PlayerController playerScript;         // プレイヤーのスクリプト
+    NightVision NightVisionScript;         // 暗視のスクリプト
+    GameObject nightwall;                  //   暗闇の部屋
+    private Flag Nflag;                    //   暗闇判定
 
     //  アイテム
     ItemManager item;
@@ -29,18 +32,24 @@ public class ChangeCamera : MonoBehaviour {
         useCameraFlag = false;
         player = GameObject.Find("Player");
         playerScript = player.GetComponent<PlayerController>();
+        NightVisionScript = player.GetComponent<NightVision>();
 
         item = GetComponent<ItemManager>();
         //タグWallを探す
         wall = GameObject.FindGameObjectsWithTag("Wall");
+
+        nightwall = GameObject.Find("nightwall");
+        Nflag = nightwall.GetComponent<Flag>();
     }
 
     // Update is called once per frame
     void Update () {
-
+        //Debug.Log(NightVisionScript.FilterFlag);
         // スペースキーが押されたら
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (NightVisionScript.FilterFlag == true) return;
+
             // バッテリーがあれば
             if (playerScript.Battery < 0) return;
 
@@ -62,7 +71,13 @@ public class ChangeCamera : MonoBehaviour {
             {
                 NormalCamera.SetActive(true);
                 PlayerCamera.SetActive(false);
-                foreach (GameObject wi in wall)
+
+                player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+                NightVisionScript.FilterFlag = false;
+                player.GetComponent<NightVision>().GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
+                player.GetComponent<NightVision>().enabled = false;
+
+            foreach (GameObject wi in wall)
                 {
                     //オブジェクトを表示する
                     wi.SetActive(true);
@@ -81,10 +96,10 @@ public class ChangeCamera : MonoBehaviour {
 
             NormalCamera.SetActive(true);
             PlayerCamera.SetActive(false);
-        }
+         }
 
         //アイテムを所持しているかどうか
-        if (item.GetItemFlag(ItemManager.Item.NightVisionFilter))
+        //if (item.GetItemFlag(ItemManager.Item.NightVisionFilter))
         {
             if (!PlayerCamera.activeSelf) return;
                 ChangeFilter();
@@ -113,28 +128,34 @@ public class ChangeCamera : MonoBehaviour {
                 player.GetComponent<NightVision>().GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.5f);
                 player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.2f);
                 player.GetComponent<NightVision>().enabled = true;
-
+<<<<<<< HEAD
+                NightVisionScript.FilterFlag = true;
                 foreach (GameObject wi in wall)
                 {
                     //オブジェクトを表示する
                     wi.SetActive(true);
                 }
+=======
+>>>>>>> parent of 3b93ab1... プレイヤー周り
             }
             else
             {
                 //  カメラエフェクトオン
                 PlayerCamera.GetComponent<PostEffect>().enabled = true;
 
-                //  フィルターの値をリセット
-                player.GetComponent<NightVision>().GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
-                player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
-                player.GetComponent<NightVision>().enabled = false;
 
-                foreach (GameObject wi in wall)
+                //  フィルターの値をリセット
+                if (Nflag.GetFlag())
                 {
-                    //オブジェクトを表示する
-                    wi.SetActive(false);
+                    player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
                 }
+                else
+                {
+                    player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+                    NightVisionScript.FilterFlag = false;
+                }
+                player.GetComponent<NightVision>().GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
+                player.GetComponent<NightVision>().enabled = false;
             }
         }
         

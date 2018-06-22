@@ -12,8 +12,11 @@ public class NightVision : MonoBehaviour
     public Image BlackImage;
     //  暗視用
     public Image GreenImage;
+    //  カメラ
+    [SerializeField] GameObject PlayerCamera;
 
-    private bool FilterFlag;
+    public bool FilterFlag;
+    GameObject nightwall;
     private Flag Nflag;
     
     //  アイテム
@@ -27,41 +30,42 @@ public class NightVision : MonoBehaviour
         BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.2f);
         FilterFlag = false;
         item = GetComponent<ItemManager>();
-        Nflag = GetComponent<Flag>();
+
+        nightwall = GameObject.Find("nightwall");
+        Nflag = nightwall.GetComponent<Flag>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         //アイテムを所持しているかどうか
         if (item.GetItemFlag(ItemManager.Item.NightVisionFilter))
         {
-            //  スペースキーが押されたら
-            if (!Input.GetKeyDown(KeyCode.Space)) return;
+            if (PlayerCamera.activeSelf == false) return;
+            if (!Input.GetKeyDown(KeyCode.X)) return;
 
             //  暗視用の部屋にいるかどうか
-            if (Nflag == true)
+            if (Nflag.GetFlag())
             {
-                Debug.Log("22222222222222222");
                 //  暗視の部屋なら
                 NightVisionRoom();
             }
             else
             {
-                Debug.Log("1111111111");
                 //  通常時なら
                 NormalRoom();
             }
         }
-        else if (Nflag == true)
+        else if (Nflag.GetFlag())
         {
-            GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
-            BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
-            FilterFlag = true;
+            DarknessFilter();
+            FilterFlag = false;
         }
         else
         {
-
+            NormalVisionFilter();
+            FilterFlag = false;
         }
 
 
@@ -72,15 +76,12 @@ public class NightVision : MonoBehaviour
     {
         if (!FilterFlag)
         {
-
-            GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
-            BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+            NightVisionFilter();
             FilterFlag = true;
         }
         else
         {
-            GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.5f);
-            BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.2f);
+            DarknessFilter();
             FilterFlag = false;
         }
     }
@@ -90,18 +91,33 @@ public class NightVision : MonoBehaviour
     {
         if (!FilterFlag)
         {
-
-            GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
-            BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+            NightVisionFilter();
             FilterFlag = true;
         }
         else
         {
-            GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.5f);
-            BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.2f);
+            NormalVisionFilter();
             FilterFlag = false;
         }
     }
 
-   
+    //  通常時
+    void NormalVisionFilter()
+    {
+        GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
+        BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+    }
+    //  暗視時
+    void NightVisionFilter()
+    {
+         GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.5f);
+         BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.2f);
+    }
+
+    //  暗闇時
+    void DarknessFilter()
+    {
+        GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
+        BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+    }
 }

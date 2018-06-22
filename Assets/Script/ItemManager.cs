@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-using UnityEngine.UI;
-
 //---------------------------------------------------------------------------
 //インベントリシステム
 
@@ -26,11 +24,17 @@ using UnityEngine.UI;
 
 //---------------------------------------------------------------------------
 
+//  アイテムデータクラス
+public class ItemData
+{
+    public ItemManager.Item type;
+}
+
 public class ItemManager : MonoBehaviour
 {
 
-    //  アイテム種類数
-    const int ItemNum = 4;
+    //  アイテム数
+    const int ItemNum = 3;
 
     //  アイテムの種類
     public enum Item
@@ -38,10 +42,11 @@ public class ItemManager : MonoBehaviour
         NightVisionFilter,          //  暗視フィルター
         Key,                        //  鍵
         Battery,                    //  バッテリー
-        HintItem                    //  ヒントアイテム
+        HintFilter                  //  ヒントフィルター
     };
 
     //  アイテムを持っているかどうかのフラグ
+    [SerializeField]
     private bool[] itemFlags = new bool[ItemNum];
     private List<Item> itemList = new List<Item>();
     private List<GameObject> IconList = new List<GameObject>();
@@ -49,8 +54,13 @@ public class ItemManager : MonoBehaviour
     string ItemName;            //  取得したアイテム名
     bool ItemFlag;              //  アイテムを取得したかどうか
 
-    public bool HintFlag;
+<<<<<<< HEAD
+    //public bool HintFlag;
+    //int ElapsedTime = 0;
+=======
+    bool HintFlag;
     int ElapsedTime = 0;
+>>>>>>> parent of 3b93ab1... プレイヤー周り
 
     //  アイテムアイコン
     [SerializeField]
@@ -60,16 +70,17 @@ public class ItemManager : MonoBehaviour
     [SerializeField]
     GameObject BatteryIcon;
     [SerializeField]
-    GameObject HintIcon;
-    [SerializeField]
     GameObject CanvasObject;
 
-    [SerializeField] GameObject SubCamera;
-    [SerializeField] Material GlowMat;
+    //[SerializeField] GameObject SubCamera;
+    [SerializeField] Material WallTopMat;
 
-    [SerializeField] Image HintImage;
+<<<<<<< HEAD
+    //[SerializeField] Image HintImage;
      bool InputFlag = false;
 
+=======
+>>>>>>> parent of 3b93ab1... プレイヤー周り
     GameObject player;                     // プレイヤーオブジェクト
     PlayerController playerScript;         // プレイヤーのスクリプト
 
@@ -83,7 +94,7 @@ public class ItemManager : MonoBehaviour
         }
 
         ItemFlag = false;
-        HintFlag = false;
+        //HintFlag = false;
 
         //  プレイヤーのスクリプトの取得
         player = GameObject.Find("Player");
@@ -103,7 +114,10 @@ public class ItemManager : MonoBehaviour
         //    IconList.Add(obj);
         //}
 
-        HintImage.color = new Color(1.0f, 0.0f, 0.0f, 0.0f);
+<<<<<<< HEAD
+        //HintImage.color = new Color(1.0f, 0.0f, 0.0f, 0.0f);
+=======
+>>>>>>> parent of 3b93ab1... プレイヤー周り
     }
 
     // Update is called once per frame
@@ -116,41 +130,52 @@ public class ItemManager : MonoBehaviour
             UseBattery();
         }
 
+<<<<<<< HEAD
+        ////  Qキーが押されたら
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    if (GetItemFlag(Item.HintItem))
+        //    {
+        //        //  ヒントを使用したときの処理
+        //        UseHint();
+        //        HintFlag = true;
+        //    }
+        //}
+        ////  Hintを使ったら
+        //if(HintFlag)
+        //{
+        //    ElapsedTime++;
+        //    player.transform.LookAt(shortObj.transform);
+        //}
+=======
         //  Qキーが押されたら
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (GetItemFlag(Item.HintItem))
-            {
-                //  ヒントを使用したときの処理
-                UseHint();
-                HintFlag = true;
-            }
+            //  ヒントを使用したときの処理
+            UseHint();
+            HintFlag = true;
         }
         //  Hintを使ったら
         if(HintFlag)
         {
             ElapsedTime++;
         }
+>>>>>>> parent of 3b93ab1... プレイヤー周り
 
-        //  時間経過でヒントを消す
-        if(ElapsedTime > 180)
-        {
-            //  ヒント終了時の処理
-            HintEnd();
-            HintFlag = false;
-            ElapsedTime = 0;
-        }
+        ////  時間経過でヒントを消す
+        //if(ElapsedTime > 180)
+        //{
+        //    //  ヒント終了時の処理
+        //    HintEnd();
+        //    HintFlag = false;
+        //    ElapsedTime = 0;
+        //}
     }
 
     //  指定したアイテムを持っているかどうか
     public bool GetItemFlag(Item item)
     {
         return itemFlags[(int)item];
-    }
-
-    public bool GetInputFlag()
-    {
-        return InputFlag;
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -163,7 +188,6 @@ public class ItemManager : MonoBehaviour
         //  アイテムを取得したならそのアイテムを消す
         if (ItemFlag)
         {
-            IconAdd();
             InventoryDisplay();
             Destroy(hit.gameObject);
             ItemFlag = false;
@@ -178,41 +202,39 @@ public class ItemManager : MonoBehaviour
         {
             //  暗視フィルター
             case "NightVisionFilter":
-                if (!itemList.Contains(Item.NightVisionFilter))
-                {
-                    itemList.Add(Item.NightVisionFilter);
-                    ItemFlag = true;
-                }
+                itemList.Add(Item.NightVisionFilter);
+                ItemFlag = true;
 
                 break;
 
             //  鍵
             case "Key":
-                if (!itemList.Contains(Item.Key))
-                {
-                    itemList.Add(Item.Key);
-                    ItemFlag = true;
-
-                }
+                itemList.Add(Item.Key);
+                ItemFlag = true;
                 break;
 
             //  バッテリー
             case "Battery":
-                if (!itemList.Contains(Item.Battery))
-                {
-                    itemList.Add(Item.Battery);
-                    ItemFlag = true;
-                }
+                itemList.Add(Item.Battery);
+                ItemFlag = true;
                 break;
 
+<<<<<<< HEAD
+            ////  ヒントフィルター
+            //case "Hint":
+            //    if (!itemList.Contains(Item.HintItem))
+            //    {
+            //        itemList.Add(Item.HintItem);
+            //        ItemFlag = true;
+            //    }
+            //    break;
+=======
             //  ヒントフィルター
-            case "Hint":
-                if (!itemList.Contains(Item.HintItem))
-                {
-                    itemList.Add(Item.HintItem);
-                    ItemFlag = true;
-                }
+            case "HintFilter":
+                itemList.Add(Item.HintFilter);
+                ItemFlag = true;
                 break;
+>>>>>>> parent of 3b93ab1... プレイヤー周り
 
             default:
                 break;
@@ -220,8 +242,9 @@ public class ItemManager : MonoBehaviour
     }
 
     //  アイテム欄の表示
-    void IconAdd()
+    void InventoryDisplay()
     {
+        
 
         for (int i = 0; i < itemList.Count; i++)
         {
@@ -241,6 +264,7 @@ public class ItemManager : MonoBehaviour
                         itemFlags[(int)Item.NightVisionFilter] = true;
                         NVIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
                         NVIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+                        NVIcon.transform.position = new Vector3((275.0f + i * 50), 24.0f, 0);
                         NVIcon.transform.SetParent(CanvasObject.transform, false);
                         IconList.Add(NVIcon);
                     }
@@ -264,6 +288,7 @@ public class ItemManager : MonoBehaviour
                         itemFlags[(int)Item.Key] = true;
                         KIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
                         KIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+                        KIcon.transform.position = new Vector3((275.0f + i * 50), 24.0f, 0);
                         KIcon.transform.SetParent(CanvasObject.transform, false);
                         IconList.Add(KIcon);
                     }
@@ -287,6 +312,7 @@ public class ItemManager : MonoBehaviour
                         itemFlags[(int)Item.Battery] = true;
                         BIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
                         BIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+                        BIcon.transform.position = new Vector3((275.0f + i * 50), 24.0f, 0);
                         BIcon.transform.SetParent(CanvasObject.transform, false);
                         IconList.Add(BIcon);
                     }
@@ -297,28 +323,31 @@ public class ItemManager : MonoBehaviour
                     }
                     break;
 
-                case Item.HintItem:
-                    //  アイコンの生成
-                    GameObject HIcon = Instantiate(HintIcon);
-                    //  リスト内に同じアイテムが含まれるかどうかの検出
-                    bool exitHIcon = IconList.Any(c => c.name == HIcon.name);
+<<<<<<< HEAD
+                //case Item.HintItem:
+                //    //  アイコンの生成
+                //    GameObject HIcon = Instantiate(HintIcon);
+                //    //  リスト内に同じアイテムが含まれるかどうかの検出
+                //    bool exitHIcon = IconList.Any(c => c.name == HIcon.name);
 
-                    //  含まれていなければ加える
-                    if (!exitHIcon)
-                    {
-                        itemFlags[(int)Item.HintItem] = true;
-                        HIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
-                        HIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-                        HIcon.transform.SetParent(CanvasObject.transform, false);
-                        IconList.Add(HIcon);
-                    }
-                    else
-                    {
-                        //  存在していれば破棄
-                        Destroy(HIcon);
-                    }
-                    break;
+                //    //  含まれていなければ加える
+                //    if (!exitHIcon)
+                //    {
+                //        itemFlags[(int)Item.HintItem] = true;
+                //        HIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
+                //        HIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+                //        HIcon.transform.SetParent(CanvasObject.transform, false);
+                //        IconList.Add(HIcon);
+                //    }
+                //    else
+                //    {
+                //        //  存在していれば破棄
+                //        Destroy(HIcon);
+                //    }
+                //    break;
 
+=======
+>>>>>>> parent of 3b93ab1... プレイヤー周り
                 default:
                     break;
             }
@@ -326,6 +355,7 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     //  アイテム欄の表示
     void InventoryDisplay()
     {
@@ -341,12 +371,10 @@ public class ItemManager : MonoBehaviour
     }
 
     //  鍵使用時の処理
-    void UseKey()
+    public void UseKey()
     {
         if (GetItemFlag(Item.Key))
         {
-
-
             GameObject obj = GameObject.FindGameObjectWithTag("KeyIcon");
             RemoveItem(obj, Item.Key);
         }
@@ -354,27 +382,44 @@ public class ItemManager : MonoBehaviour
 
         //  バッテリーの使用処理
         void UseBattery()
+=======
+    void UseBattery()
+>>>>>>> parent of 3b93ab1... プレイヤー周り
     {
         if(GetItemFlag(Item.Battery))
         {
-
-            if(playerScript.Battery == 1.0f) return;
             playerScript.Battery = 1.0f;
-            GameObject obj = GameObject.FindGameObjectWithTag("BatteryIcon");
-            RemoveItem(obj, Item.Battery);
+            //RemoveItem();
 
         }
     }
 
-    //  ヒント使用時の処理
+<<<<<<< HEAD
+    ////  ヒント使用時の処理
+    //void UseHint()
+    //{
+    //    InputFlag = true;
+=======
     void UseHint()
     {
-        InputFlag = true;
+>>>>>>> parent of 3b93ab1... プレイヤー周り
 
-        SubCamera.SetActive(true);
+    //    SubCamera.SetActive(true);
 
-        HintImage.color = new Color(1.0f, 0.0f, 0.0f, 0.2f);
+<<<<<<< HEAD
+    //    HintImage.color = new Color(1.0f, 0.0f, 0.0f, 0.2f);
 
+    //    GameObject[] wall = GameObject.FindGameObjectsWithTag("Wall");
+
+    //    float dis = 1000.0f;
+
+    //    foreach (GameObject wi in wall)
+    //    {
+    //        wi.layer = LayerMask.NameToLayer("Hint");
+    //        //WallTopMat.EnableKeyword("_EMISSION");
+    //        //WallTopMat.SetColor("_EmissionColor", Color.blue);
+
+=======
         GameObject[] wall = GameObject.FindGameObjectsWithTag("Wall");
 
         foreach (GameObject wi in wall)
@@ -383,47 +428,65 @@ public class ItemManager : MonoBehaviour
             GlowMat.EnableKeyword("_EMISSION");
             GlowMat.SetColor("_EmissionColor", Color.red);
         }
-        //  アイテムの削除
-        GameObject obj = GameObject.FindGameObjectWithTag("HintIcon");
-        RemoveItem(obj, Item.HintItem);
+        //Input.a
     }
 
-    //  ヒント終了時の処理
     void HintEnd()
     {
-        InputFlag = false;
-
         SubCamera.SetActive(false);
+>>>>>>> parent of 3b93ab1... プレイヤー周り
 
-        GameObject[] wall = GameObject.FindGameObjectsWithTag("Wall");
+    //        if (dis > Vector3.Distance(wi.transform.position, player.transform.position))
+    //        {
+    //            dis = Vector3.Distance(wi.transform.position, player.transform.position);
+    //            shortObj = wi;
+    //        };
+    //        Debug.Log(Vector3.Distance(wi.transform.position, player.transform.position));
+    //    }
 
-        foreach (GameObject wi in wall)
-        {
 
+<<<<<<< HEAD
+    //    //  アイテムの削除
+    //    GameObject obj = GameObject.FindGameObjectWithTag("HintIcon");
+    //    RemoveItem(obj, Item.HintItem);
+    //}
+
+    ////  ヒント終了時の処理
+    //void HintEnd()
+    //{
+    //    InputFlag = false;
+
+    //    SubCamera.SetActive(false);
+
+    //    GameObject[] wall = GameObject.FindGameObjectsWithTag("Wall");
+
+    //    foreach (GameObject wi in wall)
+    //    {
+
+    //        wi.layer = LayerMask.NameToLayer("Default");
+    //        //WallTopMat.SetColor("_EmissionColor", Color.white);
+    //        //WallTopMat.DisableKeyword("_EMISSION");
+    //    }
+
+    //    HintImage.color = new Color(1.0f, 0.0f, 0.0f, 0.0f);
+    //    shortObj = null;
+    //}
+=======
             wi.layer = LayerMask.NameToLayer("Default");
             GlowMat.SetColor("_EmissionColor", Color.white);
             GlowMat.DisableKeyword("_EMISSION");
         }
-
-        HintImage.color = new Color(1.0f, 0.0f, 0.0f, 0.0f);
     }
+>>>>>>> parent of 3b93ab1... プレイヤー周り
 
     //  アイテムの削除
-    void RemoveItem( GameObject obj, Item item )
+    void RemoveItem()
     {
-        itemFlags[(int)item] = false;
+        itemFlags[(int)Item.Battery] = false;
 
         //  アイコンリストから削除
-        var indexIcon = IconList.FindIndex(c => c.name == obj.name);
-        Destroy(IconList[indexIcon]);
-        IconList.RemoveAt(indexIcon);
 
         //  アイテムリストから削除
-        var indexItem = itemList.FindIndex(c => c == item);
-        itemList.RemoveAt(indexItem);
-
-        //  リストの更新
-        InventoryDisplay();
     }
 }
 
