@@ -130,12 +130,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
             }
-<<<<<<< HEAD:Assets/Script/FirstPersonController.cs
 
-            m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
-=======
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
->>>>>>> parent of 3b93ab1... プレイヤー周り:Assets/Standard Assets/Characters/FirstPersonCharacter/Scripts/FirstPersonController.cs
 
             ProgressStepCycle(speed);
             UpdateCameraPosition(speed);

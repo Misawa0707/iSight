@@ -30,7 +30,6 @@ public class trap : MonoBehaviour
         { //鍵を持っていたら   
             if (itemkey.GetItemFlag(ItemManager.Item.Key) == true)
             {
-                ItemScript.UseKey();
                 door.SetActive(false);
             }
             else

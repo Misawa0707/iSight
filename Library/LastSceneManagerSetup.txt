@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scene/Play2.unity
-=======
 - path: Assets/Scene/Title.unity
->>>>>>> parent of 3b93ab1... プレイヤー周り
   isLoaded: 1
   isActive: 1
