@@ -74,7 +74,7 @@ public class NightVision : MonoBehaviour
     //  暗視用の部屋処理
     void NightVisionRoom()
     {
-        if (!FilterFlag)
+        if (FilterFlag == false)
         {
             NightVisionFilter();
             FilterFlag = true;
@@ -89,7 +89,7 @@ public class NightVision : MonoBehaviour
     //  通常時の暗視フィルター処理
     void NormalRoom()
     {
-        if (!FilterFlag)
+        if (FilterFlag == false)
         {
             NightVisionFilter();
             FilterFlag = true;
