@@ -12,8 +12,15 @@ public class trap : MonoBehaviour
     bool Textflag = false;
     float time;
     float timeMax = 60.0f;
+
+    private GameObject player;
+    ItemManager ItemScript;
+
+
     void Start()
     {
+        player = GameObject.Find("Player");
+        ItemScript = player.GetComponent<ItemManager>();
         itemkey = itemkey.GetComponent<ItemManager>();
     }
     void OnTriggerEnter(Collider other)
@@ -23,7 +30,8 @@ public class trap : MonoBehaviour
         { //鍵を持っていたら   
             if (itemkey.GetItemFlag(ItemManager.Item.Key) == true)
             {
-                   door.SetActive(false);
+                door.SetActive(false);
+                ItemScript.UseKey();
             }
             else
             {

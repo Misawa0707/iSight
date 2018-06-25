@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeCamera : MonoBehaviour {
+public class ChangeCamera : MonoBehaviour
+{
 
     [SerializeField]
     private GameObject NormalCamera;       // 通常時に使用するカメラ
     [SerializeField]
     private GameObject PlayerCamera;       // プレイヤーがカメラ使用時の別カメラ
-                                              
+
     private bool useCameraFlag;            // カメラを使用しているかどうかのフラグ
-                                              
+
     GameObject player;                     // プレイヤーオブジェクト
     PlayerController playerScript;         // プレイヤーのスクリプト
 
@@ -21,7 +22,8 @@ public class ChangeCamera : MonoBehaviour {
     public GameObject[] wall;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         // プレイヤーがカメラ使用時のカメラを非アクティブにする
         PlayerCamera.SetActive(false);
 
@@ -36,7 +38,8 @@ public class ChangeCamera : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
 
         // スペースキーが押されたら
         if (Input.GetKeyDown(KeyCode.Space))
@@ -74,7 +77,7 @@ public class ChangeCamera : MonoBehaviour {
         }
 
         // バッテリーがなくなったらカメラの使用を止める
-        if(playerScript.Battery < 0)
+        if (playerScript.Battery < 0)
         {
             //  バッテリーがなくなったとき
             BatteryNone();
@@ -87,11 +90,11 @@ public class ChangeCamera : MonoBehaviour {
         if (item.GetItemFlag(ItemManager.Item.NightVisionFilter))
         {
             if (!PlayerCamera.activeSelf) return;
-                ChangeFilter();
+            ChangeFilter();
         }
 
     }
-    
+
 
     // カメラの使用状態の取得
     public bool GetCameraFlag()
@@ -137,7 +140,7 @@ public class ChangeCamera : MonoBehaviour {
                 }
             }
         }
-        
+
     }
 
     //  バッテリーがなくなったときの処理

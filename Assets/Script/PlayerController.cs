@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     GameObject player;              //  プレイヤーオブジェクト
     ChangeCamera changeCamera;      //  カメラ切り替えスクリプト
     public bool Flg = true;
+
     // Use this for initialization
     void Start()
     {
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
         Battery = 1.0f;
         player = GameObject.Find("Player");
         changeCamera = player.GetComponent<ChangeCamera>();
+
     }
 
     // Update is called once per frame

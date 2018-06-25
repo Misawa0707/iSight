@@ -64,11 +64,14 @@ public class ItemManager : MonoBehaviour
     [SerializeField]
     GameObject CanvasObject;
 
-    [SerializeField] GameObject SubCamera;
-    [SerializeField] Material GlowMat;
+    [SerializeField]
+    GameObject SubCamera;
+    [SerializeField]
+    Material GlowMat;
 
-    [SerializeField] Image HintImage;
-     bool InputFlag = false;
+    [SerializeField]
+    Image HintImage;
+    bool InputFlag = false;
 
     GameObject player;                     // プレイヤーオブジェクト
     PlayerController playerScript;         // プレイヤーのスクリプト
@@ -103,7 +106,7 @@ public class ItemManager : MonoBehaviour
         //    IconList.Add(obj);
         //}
 
-        HintImage.color = new Color(1.0f, 0.0f, 0.0f, 0.0f);
+       // HintImage.color = new Color(1.0f, 0.0f, 0.0f, 0.0f);
     }
 
     // Update is called once per frame
@@ -127,13 +130,13 @@ public class ItemManager : MonoBehaviour
             }
         }
         //  Hintを使ったら
-        if(HintFlag)
+        if (HintFlag)
         {
             ElapsedTime++;
         }
 
         //  時間経過でヒントを消す
-        if(ElapsedTime > 180)
+        if (ElapsedTime > 180)
         {
             //  ヒント終了時の処理
             HintEnd();
@@ -227,7 +230,7 @@ public class ItemManager : MonoBehaviour
         {
             switch (itemList[i])
             {
-               
+
 
                 case Item.NightVisionFilter:
                     //  アイコンの生成
@@ -249,7 +252,7 @@ public class ItemManager : MonoBehaviour
                         //  存在していれば破棄
                         Destroy(NVIcon);
                     }
-                    
+
                     break;
 
                 case Item.Key:
@@ -341,7 +344,7 @@ public class ItemManager : MonoBehaviour
     }
 
     //  鍵使用時の処理
-    void UseKey()
+    public void UseKey()
     {
         if (GetItemFlag(Item.Key))
         {
@@ -352,13 +355,13 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-        //  バッテリーの使用処理
-        void UseBattery()
+    //  バッテリーの使用処理
+    void UseBattery()
     {
-        if(GetItemFlag(Item.Battery))
+        if (GetItemFlag(Item.Battery))
         {
 
-            if(playerScript.Battery == 1.0f) return;
+            if (playerScript.Battery == 1.0f) return;
             playerScript.Battery = 1.0f;
             GameObject obj = GameObject.FindGameObjectWithTag("BatteryIcon");
             RemoveItem(obj, Item.Battery);
@@ -409,7 +412,7 @@ public class ItemManager : MonoBehaviour
     }
 
     //  アイテムの削除
-    void RemoveItem( GameObject obj, Item item )
+    void RemoveItem(GameObject obj, Item item)
     {
         itemFlags[(int)item] = false;
 
