@@ -15,6 +15,13 @@ public class ChangeCamera : MonoBehaviour
     GameObject player;                     // プレイヤーオブジェクト
     PlayerController playerScript;         // プレイヤーのスクリプト
 
+    NightVision nightVision;
+
+    GameObject nightwall;
+    private Flag Nflag;
+
+
+
     //  アイテム
     ItemManager item;
 
@@ -33,8 +40,13 @@ public class ChangeCamera : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
 
         item = GetComponent<ItemManager>();
+        nightVision = GetComponent<NightVision>();
+
         //タグWallを探す
         wall = GameObject.FindGameObjectsWithTag("Wall");
+
+        nightwall = GameObject.Find("nightwall");
+        Nflag = nightwall.GetComponent<Flag>();
     }
 
     // Update is called once per frame
@@ -116,7 +128,7 @@ public class ChangeCamera : MonoBehaviour
                 player.GetComponent<NightVision>().GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.5f);
                 player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.2f);
                 player.GetComponent<NightVision>().enabled = true;
-
+                nightVision.FilterFlag = true;
                 foreach (GameObject wi in wall)
                 {
                     //オブジェクトを表示する
@@ -129,8 +141,16 @@ public class ChangeCamera : MonoBehaviour
                 PlayerCamera.GetComponent<PostEffect>().enabled = true;
 
                 //  フィルターの値をリセット
+                if (Nflag == true)
+                {
+                    player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+                }
+                else
+                {
+                    player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+                }
+                nightVision.FilterFlag = false;
                 player.GetComponent<NightVision>().GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
-                player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
                 player.GetComponent<NightVision>().enabled = false;
 
                 foreach (GameObject wi in wall)
