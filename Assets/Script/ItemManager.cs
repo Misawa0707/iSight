@@ -344,7 +344,7 @@ public class ItemManager : MonoBehaviour
     }
 
     //  鍵使用時の処理
-    void UseKey()
+    public void UseKey()
     {
         if (GetItemFlag(Item.Key))
         {
