@@ -89,4 +89,9 @@ public class retryGame : MonoBehaviour
         //タイトルに戻る
         SceneManager.LoadScene("Title");
     }
+
+    public void re()
+    {
+        SceneManager.LoadScene("Reslut");
+    }
 }

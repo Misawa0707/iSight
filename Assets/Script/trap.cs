@@ -9,6 +9,7 @@ public class trap : MonoBehaviour
     public GameObject door;
     public ItemManager itemkey;
     public GameObject text;
+    public GameObject di;
     bool Textflag = false;
     float time;
     float timeMax = 60.0f;
@@ -31,6 +32,7 @@ public class trap : MonoBehaviour
             if (itemkey.GetItemFlag(ItemManager.Item.Key) == true)
             {
                 door.SetActive(false);
+                di.SetActive(false);
                 ItemScript.UseKey();
             }
             else

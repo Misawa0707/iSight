@@ -30,13 +30,14 @@ public class ItemManager : MonoBehaviour
 {
 
     //  アイテム種類数
-    const int ItemNum = 4;
+    const int ItemNum = 5;
 
     //  アイテムの種類
     public enum Item
     {
         NightVisionFilter,          //  暗視フィルター
         Key,                        //  鍵
+        Key2,
         Battery,                    //  バッテリー
         HintItem                    //  ヒントアイテム
     };
@@ -57,6 +58,7 @@ public class ItemManager : MonoBehaviour
     GameObject NightVisionIcon;
     [SerializeField]
     GameObject KeyIcon;
+
     [SerializeField]
     GameObject BatteryIcon;
     [SerializeField]
@@ -199,6 +201,8 @@ public class ItemManager : MonoBehaviour
                 }
                 break;
 
+
+
             //  バッテリー
             case "Battery":
                 if (!itemList.Contains(Item.Battery))
@@ -277,6 +281,7 @@ public class ItemManager : MonoBehaviour
                     }
                     break;
 
+            
 
                 case Item.Battery:
                     //  アイコンの生成

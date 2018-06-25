@@ -1,0 +1,30 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityStandardAssets.Characters.FirstPerson;
+
+public class door : MonoBehaviour {
+    
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+    void OnTriggerEnter(Collider other)
+    {
+ 
+        if (other.gameObject.tag == "Player")
+        {   
+            // カーソル表示
+            Cursor.visible = true;
+            SceneManager.LoadScene("Result");
+        }
+    }
+
+}
