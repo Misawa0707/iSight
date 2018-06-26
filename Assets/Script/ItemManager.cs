@@ -30,7 +30,7 @@ public class ItemManager : MonoBehaviour
 {
 
     //  アイテム種類数
-    const int ItemNum = 5;
+    const int ItemNum = 4;
 
     //  アイテムの種類
     public enum Item
@@ -39,7 +39,7 @@ public class ItemManager : MonoBehaviour
         Key,                        //  鍵
         Key2,
         Battery,                    //  バッテリー
-        HintItem                    //  ヒントアイテム
+
     };
 
     //  アイテムを持っているかどうかのフラグ
@@ -50,9 +50,6 @@ public class ItemManager : MonoBehaviour
     string ItemName;            //  取得したアイテム名
     bool ItemFlag;              //  アイテムを取得したかどうか
 
-    public bool HintFlag;
-    int ElapsedTime = 0;
-
     //  アイテムアイコン
     [SerializeField]
     GameObject NightVisionIcon;
@@ -61,18 +58,10 @@ public class ItemManager : MonoBehaviour
 
     [SerializeField]
     GameObject BatteryIcon;
-    [SerializeField]
-    GameObject HintIcon;
+
     [SerializeField]
     GameObject CanvasObject;
 
-    [SerializeField]
-    GameObject SubCamera;
-    [SerializeField]
-    Material GlowMat;
-
-    [SerializeField]
-    Image HintImage;
     bool InputFlag = false;
 
     GameObject player;                     // プレイヤーオブジェクト
@@ -88,7 +77,6 @@ public class ItemManager : MonoBehaviour
         }
 
         ItemFlag = false;
-        HintFlag = false;
 
         //  プレイヤーのスクリプトの取得
         player = GameObject.Find("Player");
@@ -121,30 +109,6 @@ public class ItemManager : MonoBehaviour
             UseBattery();
         }
 
-        //  Qキーが押されたら
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (GetItemFlag(Item.HintItem))
-            {
-                //  ヒントを使用したときの処理
-                UseHint();
-                HintFlag = true;
-            }
-        }
-        //  Hintを使ったら
-        if (HintFlag)
-        {
-            ElapsedTime++;
-        }
-
-        //  時間経過でヒントを消す
-        if (ElapsedTime > 180)
-        {
-            //  ヒント終了時の処理
-            HintEnd();
-            HintFlag = false;
-            ElapsedTime = 0;
-        }
     }
 
     //  指定したアイテムを持っているかどうか
@@ -208,15 +172,6 @@ public class ItemManager : MonoBehaviour
                 if (!itemList.Contains(Item.Battery))
                 {
                     itemList.Add(Item.Battery);
-                    ItemFlag = true;
-                }
-                break;
-
-            //  ヒントフィルター
-            case "Hint":
-                if (!itemList.Contains(Item.HintItem))
-                {
-                    itemList.Add(Item.HintItem);
                     ItemFlag = true;
                 }
                 break;
@@ -305,28 +260,6 @@ public class ItemManager : MonoBehaviour
                     }
                     break;
 
-                case Item.HintItem:
-                    //  アイコンの生成
-                    GameObject HIcon = Instantiate(HintIcon);
-                    //  リスト内に同じアイテムが含まれるかどうかの検出
-                    bool exitHIcon = IconList.Any(c => c.name == HIcon.name);
-
-                    //  含まれていなければ加える
-                    if (!exitHIcon)
-                    {
-                        itemFlags[(int)Item.HintItem] = true;
-                        HIcon.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
-                        HIcon.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-                        HIcon.transform.SetParent(CanvasObject.transform, false);
-                        IconList.Add(HIcon);
-                    }
-                    else
-                    {
-                        //  存在していれば破棄
-                        Destroy(HIcon);
-                    }
-                    break;
-
                 default:
                     break;
             }
@@ -372,48 +305,6 @@ public class ItemManager : MonoBehaviour
             RemoveItem(obj, Item.Battery);
 
         }
-    }
-
-    //  ヒント使用時の処理
-    void UseHint()
-    {
-        InputFlag = true;
-
-        SubCamera.SetActive(true);
-
-        HintImage.color = new Color(1.0f, 0.0f, 0.0f, 0.2f);
-
-        GameObject[] wall = GameObject.FindGameObjectsWithTag("Wall");
-
-        foreach (GameObject wi in wall)
-        {
-            wi.layer = LayerMask.NameToLayer("Hint");
-            GlowMat.EnableKeyword("_EMISSION");
-            GlowMat.SetColor("_EmissionColor", Color.red);
-        }
-        //  アイテムの削除
-        GameObject obj = GameObject.FindGameObjectWithTag("HintIcon");
-        RemoveItem(obj, Item.HintItem);
-    }
-
-    //  ヒント終了時の処理
-    void HintEnd()
-    {
-        InputFlag = false;
-
-        SubCamera.SetActive(false);
-
-        GameObject[] wall = GameObject.FindGameObjectsWithTag("Wall");
-
-        foreach (GameObject wi in wall)
-        {
-
-            wi.layer = LayerMask.NameToLayer("Default");
-            GlowMat.SetColor("_EmissionColor", Color.white);
-            GlowMat.DisableKeyword("_EMISSION");
-        }
-
-        HintImage.color = new Color(1.0f, 0.0f, 0.0f, 0.0f);
     }
 
     //  アイテムの削除

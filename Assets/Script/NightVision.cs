@@ -46,7 +46,7 @@ public class NightVision : MonoBehaviour
             if (!Input.GetKeyDown(KeyCode.X)) return;
 
             //  暗視用の部屋にいるかどうか
-            if (Nflag.GetFlag())
+            if (Nflag.GetFlag() == true)
             {
                 //  暗視の部屋なら
                 NightVisionRoom();
@@ -57,7 +57,7 @@ public class NightVision : MonoBehaviour
                 NormalRoom();
             }
         }
-        else if (Nflag.GetFlag())
+        else if (Nflag.GetFlag() == true)
         {
             DarknessFilter();
             FilterFlag = false;

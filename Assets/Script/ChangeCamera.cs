@@ -40,12 +40,13 @@ public class ChangeCamera : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
 
         item = GetComponent<ItemManager>();
-        nightVision = GetComponent<NightVision>();
+
 
         //タグWallを探す
         wall = GameObject.FindGameObjectsWithTag("Wall");
 
         nightwall = GameObject.Find("nightwall");
+        nightVision = player.GetComponent<NightVision>();
         Nflag = nightwall.GetComponent<Flag>();
     }
 
@@ -59,8 +60,10 @@ public class ChangeCamera : MonoBehaviour
             // バッテリーがあれば
             if (playerScript.Battery < 0) return;
 
+            if (nightVision.FilterFlag == true) return;
+
             // それぞれのカメラのアクティブ状態を反転する
-            if (NormalCamera.activeSelf)
+            if (NormalCamera.activeSelf == true)
             {
                 NormalCamera.SetActive(false);
                 PlayerCamera.SetActive(true);
@@ -101,7 +104,7 @@ public class ChangeCamera : MonoBehaviour
         //アイテムを所持しているかどうか
         if (item.GetItemFlag(ItemManager.Item.NightVisionFilter))
         {
-            if (!PlayerCamera.activeSelf) return;
+            if (PlayerCamera.activeSelf == false) return;
             ChangeFilter();
         }
 
@@ -120,7 +123,7 @@ public class ChangeCamera : MonoBehaviour
         //  Xキーが押されたら
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (PlayerCamera.GetComponent<PostEffect>().enabled)
+            if (PlayerCamera.GetComponent<PostEffect>().enabled == true)
             {
                 //  カメラエフェクトオフ
                 PlayerCamera.GetComponent<PostEffect>().enabled = false;
@@ -128,7 +131,9 @@ public class ChangeCamera : MonoBehaviour
                 player.GetComponent<NightVision>().GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.5f);
                 player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.2f);
                 player.GetComponent<NightVision>().enabled = true;
+
                 nightVision.FilterFlag = true;
+
                 foreach (GameObject wi in wall)
                 {
                     //オブジェクトを表示する
@@ -141,7 +146,7 @@ public class ChangeCamera : MonoBehaviour
                 PlayerCamera.GetComponent<PostEffect>().enabled = true;
 
                 //  フィルターの値をリセット
-                if (Nflag == true)
+                if (Nflag.GetFlag() == true)
                 {
                     player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
                 }
@@ -149,13 +154,14 @@ public class ChangeCamera : MonoBehaviour
                 {
                     player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
                 }
-                nightVision.FilterFlag = false;
                 player.GetComponent<NightVision>().GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
                 player.GetComponent<NightVision>().enabled = false;
 
+                nightVision.FilterFlag = false;
+
                 foreach (GameObject wi in wall)
                 {
-                    //オブジェクトを表示する
+                    //オブジェクトを非表示する
                     wi.SetActive(false);
                 }
             }
@@ -170,6 +176,8 @@ public class ChangeCamera : MonoBehaviour
         player.GetComponent<NightVision>().GreenImage.color = new Color(0.16f, 1.0f, 0.13f, 0.0f);
         player.GetComponent<NightVision>().BlackImage.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
         player.GetComponent<NightVision>().enabled = false;
+
+        nightVision.FilterFlag = false;
 
         foreach (GameObject wi in wall)
         {
