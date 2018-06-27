@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Keypush : MonoBehaviour {
     public GameObject endB;
     public GameObject titB;
     public GameObject keytext;
+   
     // Use this for initialization
     void Start () {
 		
@@ -19,6 +21,12 @@ public class Keypush : MonoBehaviour {
             endB.SetActive(true);
             titB.SetActive(true);
             keytext.SetActive(false);
+            FirstPersonController fpc = GetComponent<FirstPersonController>();
+            fpc.enabled = false;
+            // 標準モード
+            Cursor.lockState = CursorLockMode.None;
+            // カーソル表示
+            Cursor.visible = true;
         }
     }
 }
