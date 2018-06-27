@@ -17,12 +17,17 @@ public class trap : MonoBehaviour
     private GameObject player;
     ItemManager ItemScript;
 
+    public AudioSource audioSource;
+    [SerializeField]
+    AudioClip audioClipDoor;
 
     void Start()
     {
         player = GameObject.Find("Player");
         ItemScript = player.GetComponent<ItemManager>();
         itemkey = itemkey.GetComponent<ItemManager>();
+        audioSource = audioSource.GetComponent<AudioSource>();
+        audioSource.clip = audioClipDoor;
     }
     void OnTriggerEnter(Collider other)
     {
@@ -33,6 +38,7 @@ public class trap : MonoBehaviour
             {
                 door.SetActive(false);
                 di.SetActive(false);
+                audioSource.Play();
                 ItemScript.UseKey();
             }
             else

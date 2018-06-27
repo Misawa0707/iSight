@@ -67,6 +67,11 @@ public class ItemManager : MonoBehaviour
     GameObject player;                     // プレイヤーオブジェクト
     PlayerController playerScript;         // プレイヤーのスクリプト
 
+    
+    public AudioSource audioSource;
+    [SerializeField]
+    AudioClip audioClipItem; 
+
     // Use this for initialization
     void Start()
     {
@@ -81,6 +86,9 @@ public class ItemManager : MonoBehaviour
         //  プレイヤーのスクリプトの取得
         player = GameObject.Find("Player");
         playerScript = player.GetComponent<PlayerController>();
+
+       audioSource = audioSource.GetComponent<AudioSource>();
+       audioSource.clip = audioClipItem;
 
         //var key1 = Instantiate( keyPrefab );
         //var key2 = Instantiate(keyPrefab);
@@ -142,6 +150,8 @@ public class ItemManager : MonoBehaviour
     //  アイテムの取得
     void Get()
     {
+
+
         //  アイテムを取得
         switch (ItemName)
         {
@@ -151,8 +161,9 @@ public class ItemManager : MonoBehaviour
                 {
                     itemList.Add(Item.NightVisionFilter);
                     ItemFlag = true;
+                    audioSource.Play();
                 }
-
+           
                 break;
 
             //  鍵
@@ -161,8 +172,9 @@ public class ItemManager : MonoBehaviour
                 {
                     itemList.Add(Item.Key);
                     ItemFlag = true;
-
+                    audioSource.Play();
                 }
+              
                 break;
 
 
@@ -173,6 +185,7 @@ public class ItemManager : MonoBehaviour
                 {
                     itemList.Add(Item.Battery);
                     ItemFlag = true;
+                    audioSource.Play();
                 }
                 break;
 

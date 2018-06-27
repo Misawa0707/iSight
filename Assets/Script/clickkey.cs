@@ -11,11 +11,14 @@ public class clickkey : MonoBehaviour {
     public GameObject textT;
     private Vector3 posloadUI;
     private Vector3 posopUI;
-
+   // public AudioSource soundbotan;
+    //public AudioClip audioClipButton;
     void Start()
     {
         posopUI = opUI.GetComponent<RectTransform>().anchoredPosition;
         opUI.GetComponent<RectTransform>().anchoredPosition = new Vector3(555, 0, 0);
+       // soundbotan = GetComponent<AudioSource>();
+       // soundbotan.clip = audioClip3;
     }
     public void openui()
     {
@@ -23,6 +26,8 @@ public class clickkey : MonoBehaviour {
         loadUI.GetComponent<RectTransform>().anchoredPosition = new Vector3(555, 0, 0);
         opUI.GetComponent<RectTransform>().anchoredPosition= posopUI;
         textT.SetActive(false);
+
+       // soundbotan.PlayOneShot(audioClipButton);
     }
 
     public void cui()
